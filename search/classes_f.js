@@ -2,12 +2,8 @@ var searchData=
 [
   ['range',['Range',['../d6/d32/structdart_1_1math_1_1detail_1_1Range.html',1,'dart::math::detail']]],
   ['realvectorspace',['RealVectorSpace',['../d7/d50/structdart_1_1math_1_1RealVectorSpace.html',1,'dart::math']]],
-  ['recording',['Recording',['../df/d79/structdart_1_1dynamics_1_1Recording.html',1,'dart::dynamics']]],
-  ['recording',['Recording',['../dd/d87/classdart_1_1simulation_1_1Recording.html',1,'dart::simulation']]],
-  ['recordingeventhandler',['RecordingEventHandler',['../d1/ded/classRecordingEventHandler.html',1,'']]],
-  ['recordingworld',['RecordingWorld',['../d3/d35/classRecordingWorld.html',1,'']]],
+  ['recording',['Recording',['../df/d79/structdart_1_1dynamics_1_1Recording.html',1,'dart::dynamics::Recording'],['../dd/d87/classdart_1_1simulation_1_1Recording.html',1,'dart::simulation::Recording']]],
   ['referentialskeleton',['ReferentialSkeleton',['../d6/d9a/classdart_1_1dynamics_1_1ReferentialSkeleton.html',1,'dart::dynamics']]],
-  ['relaxedposture',['RelaxedPosture',['../df/d20/classRelaxedPosture.html',1,'']]],
   ['renderinterface',['RenderInterface',['../d2/d6f/classdart_1_1gui_1_1RenderInterface.html',1,'dart::gui']]],
   ['requiresaspect',['RequiresAspect',['../d4/dc5/classdart_1_1common_1_1RequiresAspect.html',1,'dart::common']]],
   ['requiresaspect_3c_20common_3a_3aembeddedpropertiesaspect_3c_20derivedt_2c_20propertiesdatat_20_3e_20_3e',['RequiresAspect&lt; common::EmbeddedPropertiesAspect&lt; DerivedT, PropertiesDataT &gt; &gt;',['../d4/dc5/classdart_1_1common_1_1RequiresAspect.html',1,'dart::common']]],

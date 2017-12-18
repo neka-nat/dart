@@ -9,5 +9,6 @@ var searchData=
   ['meshshapeptr',['MeshShapePtr',['../d7/d5a/namespacedart_1_1dynamics.html#af0d78bacae4606475a94b9976d580b79',1,'dart::dynamics']]],
   ['metaskeletonptr',['MetaSkeletonPtr',['../d7/d5a/namespacedart_1_1dynamics.html#a126813ccee75670ee040db77e1df2e0a',1,'dart::dynamics']]],
   ['modelinterfaceptr',['ModelInterfacePtr',['../d8/d28/namespacedart_1_1utils.html#a07b8511877e0c1607dc16415de735bbf',1,'dart::utils']]],
-  ['moduleset',['ModuleSet',['../d4/de6/classdart_1_1dynamics_1_1CompositeIK.html#ac4bc0f2b9774763f205ad5eee38f783e',1,'dart::dynamics::CompositeIK']]]
+  ['moduleset',['ModuleSet',['../d4/de6/classdart_1_1dynamics_1_1CompositeIK.html#ac4bc0f2b9774763f205ad5eee38f783e',1,'dart::dynamics::CompositeIK']]],
+  ['multisphereshape',['MultiSphereShape',['../d7/d5a/namespacedart_1_1dynamics.html#a64de1d508ad60e554847a3dc34a7732e',1,'dart::dynamics']]]
 ];

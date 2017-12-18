@@ -1,12 +1,12 @@
 var classdart_1_1planning_1_1CircularPathSegment =
 [
     [ "CircularPathSegment", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a3a7e9a50e776589bd71bcb7122ddc8d7", null ],
-    [ "clone", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#aa0a46192ac907b8b56a625022bb398b6", null ],
-    [ "getConfig", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a1d366ff935259f7a79af0a3e5ffc7e05", null ],
-    [ "getCurvature", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a378bc732930c821472307768d7cd1215", null ],
-    [ "getLength", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a89454471747e1f1d343309f8bc126831", null ],
-    [ "getSwitchingPoints", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#aba73c56944a28caeeb9846a39baf2d7b", null ],
-    [ "getTangent", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a274641d1d4a5333b3e268a75bde67ac3", null ],
+    [ "clone", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#afe08394013457c98aa5a3499f03b4b56", null ],
+    [ "getConfig", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#abcf52741859775a4f97a931dcb6ed838", null ],
+    [ "getCurvature", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#aa0ca237aa3b2e7f4c850b50cbaef5e27", null ],
+    [ "getLength", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a6fcb97cb19c4044d32fcbe324c2ee738", null ],
+    [ "getSwitchingPoints", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a012d2a7ab460da1d4c3679d1478b1240", null ],
+    [ "getTangent", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a6698a171aa6ecae85367a2863d3dd81b", null ],
     [ "center", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a02acf7bbc739d7f7953f38123f248ddb", null ],
     [ "length", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a4fc83115b6a411a0ed3438be6fc198dc", null ],
     [ "position", "df/df5/classdart_1_1planning_1_1CircularPathSegment.html#a0dc43b15b057edd6057addb68507f857", null ],

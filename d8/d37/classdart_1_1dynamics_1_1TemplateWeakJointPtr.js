@@ -4,7 +4,7 @@ var classdart_1_1dynamics_1_1TemplateWeakJointPtr =
     [ "TemplateWeakJointPtr", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#a370cacdff338b7e2243738bacf0a9f4f", null ],
     [ "TemplateWeakJointPtr", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#a1cfb148b46abcdc01a356b372eedbe40", null ],
     [ "TemplateWeakJointPtr", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#ae178f8357860fa9c418afad4dd8d2ca1", null ],
-    [ "lock", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#a90dbfcb17ff997189df072139f5da094", null ],
+    [ "lock", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#abc42299c006b96f4f9bdad8eed7c8a2e", null ],
     [ "operator=", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#aa150daab20ecc9e58b99875b4b309eb2", null ],
     [ "operator=", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#acce5d943e06930149870dc3842ccbce5", null ],
     [ "operator=", "d8/d37/classdart_1_1dynamics_1_1TemplateWeakJointPtr.html#a13c9f5fafd203eb8c2d128f078ca3eb0", null ],

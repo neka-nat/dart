@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['templatedjacobiannode_2ehpp',['TemplatedJacobianNode.hpp',['../df/d2c/detail_2TemplatedJacobianNode_8hpp.html',1,'']]],
-  ['templatedjacobiannode_2ehpp',['TemplatedJacobianNode.hpp',['../d3/d00/TemplatedJacobianNode_8hpp.html',1,'']]],
+  ['templatedjacobiannode_2ehpp',['TemplatedJacobianNode.hpp',['../df/d2c/detail_2TemplatedJacobianNode_8hpp.html',1,'(Global Namespace)'],['../d3/d00/TemplatedJacobianNode_8hpp.html',1,'(Global Namespace)']]],
   ['templatejoinerdispatchmacro_2ehpp',['TemplateJoinerDispatchMacro.hpp',['../df/d24/TemplateJoinerDispatchMacro_8hpp.html',1,'']]],
   ['timer_2ecpp',['Timer.cpp',['../d0/dc2/Timer_8cpp.html',1,'']]],
   ['timer_2ehpp',['Timer.hpp',['../d8/dbf/Timer_8hpp.html',1,'']]],

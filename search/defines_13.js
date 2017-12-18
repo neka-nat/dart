@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['version_5fstring',['VERSION_STRING',['../dd/dc0/lodepng_8cpp.html#a698acb89e1bf5837b33c30ef35c30044',1,'lodepng.cpp']]]
+  ['zero',['ZERO',['../db/d9d/SnoptInterface_8hpp.html#ac328e551bde3d39b6d7b8cc9e048d941',1,'SnoptInterface.hpp']]]
 ];

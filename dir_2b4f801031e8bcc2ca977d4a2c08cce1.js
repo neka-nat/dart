@@ -1,6 +1,5 @@
 var dir_2b4f801031e8bcc2ca977d4a2c08cce1 =
 [
-    [ "examples", "dir_aa71769664a5ef2e1084f2d4accd2a40.html", "dir_aa71769664a5ef2e1084f2d4accd2a40" ],
     [ "render", "dir_af5f6e55beb8de631156bab63c0de554.html", "dir_af5f6e55beb8de631156bab63c0de554" ],
     [ "DefaultEventHandler.cpp", "da/d7d/DefaultEventHandler_8cpp.html", "da/d7d/DefaultEventHandler_8cpp" ],
     [ "DefaultEventHandler.hpp", "d8/db1/DefaultEventHandler_8hpp.html", "d8/db1/DefaultEventHandler_8hpp" ],
@@ -14,6 +13,19 @@ var dir_2b4f801031e8bcc2ca977d4a2c08cce1 =
       [ "SimpleFrameShapeDnD", "d3/da8/classdart_1_1gui_1_1osg_1_1SimpleFrameShapeDnD.html", "d3/da8/classdart_1_1gui_1_1osg_1_1SimpleFrameShapeDnD" ],
       [ "InteractiveFrameDnD", "dc/d88/classdart_1_1gui_1_1osg_1_1InteractiveFrameDnD.html", "dc/d88/classdart_1_1gui_1_1osg_1_1InteractiveFrameDnD" ],
       [ "BodyNodeDnD", "d2/d22/classdart_1_1gui_1_1osg_1_1BodyNodeDnD.html", "d2/d22/classdart_1_1gui_1_1osg_1_1BodyNodeDnD" ]
+    ] ],
+    [ "ImGuiHandler.cpp", "d7/d96/ImGuiHandler_8cpp.html", "d7/d96/ImGuiHandler_8cpp" ],
+    [ "ImGuiHandler.hpp", "df/d13/ImGuiHandler_8hpp.html", [
+      [ "ImGuiHandler", "d9/db1/classdart_1_1gui_1_1osg_1_1ImGuiHandler.html", "d9/db1/classdart_1_1gui_1_1osg_1_1ImGuiHandler" ]
+    ] ],
+    [ "ImGuiViewer.cpp", "df/d9d/ImGuiViewer_8cpp.html", null ],
+    [ "ImGuiViewer.hpp", "d9/de8/ImGuiViewer_8hpp.html", [
+      [ "ImGuiViewer", "da/d5f/classdart_1_1gui_1_1osg_1_1ImGuiViewer.html", "da/d5f/classdart_1_1gui_1_1osg_1_1ImGuiViewer" ]
+    ] ],
+    [ "ImGuiWidget.cpp", "d1/d8f/ImGuiWidget_8cpp.html", null ],
+    [ "ImGuiWidget.hpp", "d7/d12/ImGuiWidget_8hpp.html", [
+      [ "ImGuiWidget", "db/db4/classdart_1_1gui_1_1osg_1_1ImGuiWidget.html", "db/db4/classdart_1_1gui_1_1osg_1_1ImGuiWidget" ],
+      [ "AboutWidget", "dd/da5/classdart_1_1gui_1_1osg_1_1AboutWidget.html", "dd/da5/classdart_1_1gui_1_1osg_1_1AboutWidget" ]
     ] ],
     [ "InteractiveFrame.cpp", "d4/d50/InteractiveFrame_8cpp.html", null ],
     [ "InteractiveFrame.hpp", "de/d83/InteractiveFrame_8hpp.html", "de/d83/InteractiveFrame_8hpp" ],

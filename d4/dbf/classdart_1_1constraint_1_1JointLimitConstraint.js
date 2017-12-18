@@ -7,7 +7,7 @@ var classdart_1_1constraint_1_1JointLimitConstraint =
     [ "compressPath", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#a16653228e700d3b03730e87a443df9aa", null ],
     [ "excite", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#af1e97d6335f16df0c1135f0be81327bb", null ],
     [ "getConstraintForceMixing", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#a7c79baf7eed9a28a2692ab17b600d91b", null ],
-    [ "getDimension", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#aa09e2b60c56a380f9b7433f4318f51d4", null ],
+    [ "getDimension", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#a0a93b0c1e3cd6d80857ac62f0465c480", null ],
     [ "getErrorAllowance", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#ac360e927f70e639d620e3e898fe6db96", null ],
     [ "getErrorReductionParameter", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#a0d974a41683719aca5a542b40dbbb0b2", null ],
     [ "getInformation", "d4/dbf/classdart_1_1constraint_1_1JointLimitConstraint.html#a9119f99aba82c9c9a084f4ffe8c1991a", null ],

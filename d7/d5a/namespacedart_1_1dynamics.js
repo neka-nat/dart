@@ -45,7 +45,7 @@ var namespacedart_1_1dynamics =
     [ "Marker", "db/d20/classdart_1_1dynamics_1_1Marker.html", "db/d20/classdart_1_1dynamics_1_1Marker" ],
     [ "MeshShape", "d0/d2d/classdart_1_1dynamics_1_1MeshShape.html", "d0/d2d/classdart_1_1dynamics_1_1MeshShape" ],
     [ "MetaSkeleton", "d4/d4a/classdart_1_1dynamics_1_1MetaSkeleton.html", "d4/d4a/classdart_1_1dynamics_1_1MetaSkeleton" ],
-    [ "MultiSphereShape", "dd/dbb/classdart_1_1dynamics_1_1MultiSphereShape.html", "dd/dbb/classdart_1_1dynamics_1_1MultiSphereShape" ],
+    [ "MultiSphereConvexHullShape", "dc/d4c/classdart_1_1dynamics_1_1MultiSphereConvexHullShape.html", "dc/d4c/classdart_1_1dynamics_1_1MultiSphereConvexHullShape" ],
     [ "MutexedWeakSkeletonPtr", "de/d69/structdart_1_1dynamics_1_1MutexedWeakSkeletonPtr.html", "de/d69/structdart_1_1dynamics_1_1MutexedWeakSkeletonPtr" ],
     [ "Node", "db/dc8/classdart_1_1dynamics_1_1Node.html", "db/dc8/classdart_1_1dynamics_1_1Node" ],
     [ "NodeDestructor", "de/ddb/classdart_1_1dynamics_1_1NodeDestructor.html", "de/ddb/classdart_1_1dynamics_1_1NodeDestructor" ],

@@ -140,10 +140,9 @@ var dir_ce1d750ba4a7950ac0659613f96015b8 =
     [ "MetaSkeleton.hpp", "d0/d96/MetaSkeleton_8hpp.html", [
       [ "MetaSkeleton", "d4/d4a/classdart_1_1dynamics_1_1MetaSkeleton.html", "d4/d4a/classdart_1_1dynamics_1_1MetaSkeleton" ]
     ] ],
-    [ "MultiSphereShape.cpp", "db/dd2/MultiSphereShape_8cpp.html", null ],
-    [ "MultiSphereShape.hpp", "d3/d22/MultiSphereShape_8hpp.html", [
-      [ "MultiSphereShape", "dd/dbb/classdart_1_1dynamics_1_1MultiSphereShape.html", "dd/dbb/classdart_1_1dynamics_1_1MultiSphereShape" ]
-    ] ],
+    [ "MultiSphereConvexHullShape.cpp", "d7/df4/MultiSphereConvexHullShape_8cpp.html", null ],
+    [ "MultiSphereConvexHullShape.hpp", "d2/d41/MultiSphereConvexHullShape_8hpp.html", "d2/d41/MultiSphereConvexHullShape_8hpp" ],
+    [ "MultiSphereShape.hpp", "d3/d22/MultiSphereShape_8hpp.html", null ],
     [ "Node.cpp", "dc/d73/Node_8cpp.html", "dc/d73/Node_8cpp" ],
     [ "Node.hpp", "d7/dc6/Node_8hpp.html", [
       [ "NodeDestructor", "de/ddb/classdart_1_1dynamics_1_1NodeDestructor.html", "de/ddb/classdart_1_1dynamics_1_1NodeDestructor" ],

@@ -9,7 +9,7 @@ var classdart_1_1optimizer_1_1ModularFunction =
     [ "evalGradient", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#abaa94e0ae81238aac65e5dbddaeaeef1", null ],
     [ "evalGradient", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#aa676e52319c2159a6edb2a378162c40c", null ],
     [ "evalHessian", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#a1d9f92a5b42e265bab72d35909d3e423", null ],
-    [ "getName", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#afc47660e5f3588d3d52f525073b9d65b", null ],
+    [ "getName", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#ab130cc447a1c91b62f7516856c2e8c46", null ],
     [ "setCostFunction", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#ad742eb80e1910a96ea603f8a8ff11e90", null ],
     [ "setGradientFunction", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#ab7a7074eb43851f8d74b020dd125fd7c", null ],
     [ "setHessianFunction", "d9/d98/classdart_1_1optimizer_1_1ModularFunction.html#ad943114af84c4c3106de9222b7fc856c", null ],

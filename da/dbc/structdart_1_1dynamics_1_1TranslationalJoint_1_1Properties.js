@@ -6,6 +6,7 @@ var structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties =
     [ "Vector", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#ad750b77a3c9ac4003d37f4d60fa618bb", null ],
     [ "Properties", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#ad9ecb10879ad85cfb97040d863105370", null ],
     [ "~Properties", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#abd8b8a9b6430f514424a44ae61675a7e", null ],
+    [ "createShared", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#adc5b184ebdcd9552928095779ccbe184", null ],
     [ "mAccelerationLowerLimits", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#a06d43dbf06642ee4f5a6f2fc54fe14b9", null ],
     [ "mAccelerationUpperLimits", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#a72fb726ca6b6e525613b14ff7f3834cc", null ],
     [ "mActuatorType", "da/dbc/structdart_1_1dynamics_1_1TranslationalJoint_1_1Properties.html#a7ccdb96b4f4dbb9389b8252252db095a", null ],

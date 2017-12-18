@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['lcp_2ecpp',['lcp.cpp',['../df/d8a/lcp_8cpp.html',1,'']]],
-  ['lcp_2eh',['lcp.h',['../d8/df5/lcp_8h.html',1,'']]],
   ['lcpsolver_2ecpp',['LCPSolver.cpp',['../d1/daf/LCPSolver_8cpp.html',1,'']]],
   ['lcpsolver_2ehpp',['LCPSolver.hpp',['../d6/db1/LCPSolver_8hpp.html',1,'']]],
   ['lemke_2ecpp',['Lemke.cpp',['../da/d13/Lemke_8cpp.html',1,'']]],
@@ -17,7 +15,5 @@ var searchData=
   ['localresource_2ecpp',['LocalResource.cpp',['../d3/d79/LocalResource_8cpp.html',1,'']]],
   ['localresource_2ehpp',['LocalResource.hpp',['../d3/d30/LocalResource_8hpp.html',1,'']]],
   ['localresourceretriever_2ecpp',['LocalResourceRetriever.cpp',['../d4/dbd/LocalResourceRetriever_8cpp.html',1,'']]],
-  ['localresourceretriever_2ehpp',['LocalResourceRetriever.hpp',['../d8/dfb/LocalResourceRetriever_8hpp.html',1,'']]],
-  ['lodepng_2ecpp',['lodepng.cpp',['../dd/dc0/lodepng_8cpp.html',1,'']]],
-  ['lodepng_2eh',['lodepng.h',['../d2/ddf/lodepng_8h.html',1,'']]]
+  ['localresourceretriever_2ehpp',['LocalResourceRetriever.hpp',['../d8/dfb/LocalResourceRetriever_8hpp.html',1,'']]]
 ];

@@ -7,7 +7,7 @@ var classdart_1_1constraint_1_1JointCoulombFrictionConstraint =
     [ "compressPath", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#a16653228e700d3b03730e87a443df9aa", null ],
     [ "excite", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#a4963a67d92a32ac1616bc5534992785d", null ],
     [ "getConstraintForceMixing", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#ad102985a6c075083f978e4cca335ad0f", null ],
-    [ "getDimension", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#aa09e2b60c56a380f9b7433f4318f51d4", null ],
+    [ "getDimension", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#a0a93b0c1e3cd6d80857ac62f0465c480", null ],
     [ "getInformation", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#af154d2e0f2d87aad5577b7497c703f92", null ],
     [ "getRootSkeleton", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#ab33081e2699f7bf31173e1c790807640", null ],
     [ "getRootSkeleton", "dd/d61/classdart_1_1constraint_1_1JointCoulombFrictionConstraint.html#a7ba3e5179d876fc147f630ab1a524adb", null ],

@@ -6,7 +6,7 @@ var classdart_1_1optimizer_1_1NullFunction =
     [ "evalGradient", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#abaa94e0ae81238aac65e5dbddaeaeef1", null ],
     [ "evalGradient", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#a63db7cdd1ca136bd990fe4d98ae24952", null ],
     [ "evalHessian", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#a06930265e8ba6903674648dd0a0ea31e", null ],
-    [ "getName", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#afc47660e5f3588d3d52f525073b9d65b", null ],
+    [ "getName", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#ab130cc447a1c91b62f7516856c2e8c46", null ],
     [ "setName", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#a13bdde1487d19fcc5e32d634c7303d1f", null ],
     [ "mName", "dd/dfa/classdart_1_1optimizer_1_1NullFunction.html#a201fd012640c54e6c513af5a1a16db20", null ]
 ];

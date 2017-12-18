@@ -2,8 +2,8 @@ var structdart_1_1dynamics_1_1PointMass_1_1Properties =
 [
     [ "Properties", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#acc9cc4a35a1acddff1d9333556783720", null ],
     [ "~Properties", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#a83c95146da022a6cd5ebae6c37fa6ca9", null ],
-    [ "operator!=", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#afae49843491592ff4d1e175d586415fe", null ],
-    [ "operator==", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#a4cc3f714c7717904bfe6b4f867202ffc", null ],
+    [ "operator!=", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#a19f02f5d6130768a752ceb4ba959375a", null ],
+    [ "operator==", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#abd99835752b4d722595c2d17d4b2ae2e", null ],
     [ "setMass", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#ac590ff1b6699a7423456b1c40c1d329c", null ],
     [ "setRestingPosition", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#a9f720dbf1631e2d1d68809e40614b9c7", null ],
     [ "mAccelerationLowerLimits", "d9/db4/structdart_1_1dynamics_1_1PointMass_1_1Properties.html#a1c2330ad823bf5f0c8e386da5758931b", null ],

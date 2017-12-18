@@ -6,6 +6,6 @@ var structdart_1_1math_1_1SO3Space =
     [ "Point", "d3/df4/structdart_1_1math_1_1SO3Space.html#aefc797fd36457cd0aae3a000cdd95fa3", null ],
     [ "TangentSpace", "d3/df4/structdart_1_1math_1_1SO3Space.html#a59311b900ffa7eabcea205669e7462f4", null ],
     [ "Vector", "d3/df4/structdart_1_1math_1_1SO3Space.html#a4b56f71f1b000743973ecd09cc131549", null ],
-    [ "NumDofs", "d3/df4/structdart_1_1math_1_1SO3Space.html#aa4d6acf5771c8fc53c4054dd650b4d0da0f307bf46954184b45beffc0c15b2ab3", null ],
-    [ "NumDofsEigen", "d3/df4/structdart_1_1math_1_1SO3Space.html#a6e10213daeca1cec91a449c9261bcaefa99f7abc36e933f29ae226e46ec935a74", null ]
+    [ "NumDofs", "d3/df4/structdart_1_1math_1_1SO3Space.html#a02323ab097a830a4089d11f8745198f2", null ],
+    [ "NumDofsEigen", "d3/df4/structdart_1_1math_1_1SO3Space.html#a7624d04dc90aadd21b38d8396258ae2c", null ]
 ];

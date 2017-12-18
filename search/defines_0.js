@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5fgeta',['_GETA',['../d5/d84/matrix_8cpp.html#a662193bf1a21c471ae0d0f03769f6bb8',1,'matrix.cpp']]]
+  ['_5fdart_5fdefine_5fobject_5fcreator',['_DART_DEFINE_OBJECT_CREATOR',['../d4/d18/Memory_8hpp.html#a5ee30afc9b03b2d5fb0b097d56321703',1,'Memory.hpp']]],
+  ['_5fdart_5fdefine_5fobject_5fcreator_5ffor_5fprotected_5fctor',['_DART_DEFINE_OBJECT_CREATOR_FOR_PROTECTED_CTOR',['../d4/d18/Memory_8hpp.html#a14f47e574978955b63ecedd49dbd2e3e',1,'Memory.hpp']]]
 ];

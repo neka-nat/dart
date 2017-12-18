@@ -12,8 +12,7 @@ var dir_d9bc0d3f4e4fe81f6b2799c71d86043d =
     ] ],
     [ "FCLCollisionObject.cpp", "d7/da0/FCLCollisionObject_8cpp.html", null ],
     [ "FCLCollisionObject.hpp", "db/def/FCLCollisionObject_8hpp.html", [
-      [ "FCLCollisionObject", "d8/d9f/classdart_1_1collision_1_1FCLCollisionObject.html", "d8/d9f/classdart_1_1collision_1_1FCLCollisionObject" ],
-      [ "UserData", "d1/dfe/structdart_1_1collision_1_1FCLCollisionObject_1_1UserData.html", "d1/dfe/structdart_1_1collision_1_1FCLCollisionObject_1_1UserData" ]
+      [ "FCLCollisionObject", "d8/d9f/classdart_1_1collision_1_1FCLCollisionObject.html", "d8/d9f/classdart_1_1collision_1_1FCLCollisionObject" ]
     ] ],
     [ "FCLTypes.cpp", "d5/d57/FCLTypes_8cpp.html", null ],
     [ "FCLTypes.hpp", "d6/df8/FCLTypes_8hpp.html", "d6/df8/FCLTypes_8hpp" ],

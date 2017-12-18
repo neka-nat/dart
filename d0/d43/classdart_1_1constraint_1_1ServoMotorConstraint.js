@@ -7,7 +7,7 @@ var classdart_1_1constraint_1_1ServoMotorConstraint =
     [ "compressPath", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a16653228e700d3b03730e87a443df9aa", null ],
     [ "excite", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a8625e05a4ff571556498849a814fdfab", null ],
     [ "getConstraintForceMixing", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a1d50c2b7dc71466831a4c39a032b2ee5", null ],
-    [ "getDimension", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#aa09e2b60c56a380f9b7433f4318f51d4", null ],
+    [ "getDimension", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a0a93b0c1e3cd6d80857ac62f0465c480", null ],
     [ "getInformation", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a7077f20527a4a3f630a18cb75e9bdbe7", null ],
     [ "getRootSkeleton", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a9ed023676cb8df59736bb510dbd8e4d1", null ],
     [ "getRootSkeleton", "d0/d43/classdart_1_1constraint_1_1ServoMotorConstraint.html#a7ba3e5179d876fc147f630ab1a524adb", null ],

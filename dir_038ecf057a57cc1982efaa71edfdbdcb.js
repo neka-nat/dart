@@ -34,6 +34,10 @@ var dir_038ecf057a57cc1982efaa71edfdbdcb =
       [ "EmbedStateAndPropertiesOnTopOf", "d8/de9/classdart_1_1common_1_1EmbedStateAndPropertiesOnTopOf.html", "d8/de9/classdart_1_1common_1_1EmbedStateAndPropertiesOnTopOf" ]
     ] ],
     [ "Empty.hpp", "d9/d98/Empty_8hpp.html", "d9/d98/Empty_8hpp" ],
+    [ "Factory.hpp", "d5/d03/Factory_8hpp.html", [
+      [ "Factory", "d9/d84/classdart_1_1common_1_1Factory.html", "d9/d84/classdart_1_1common_1_1Factory" ],
+      [ "FactoryRegistrar", "d9/da2/classdart_1_1common_1_1FactoryRegistrar.html", "d9/da2/classdart_1_1common_1_1FactoryRegistrar" ]
+    ] ],
     [ "LocalResource.cpp", "d3/d79/LocalResource_8cpp.html", null ],
     [ "LocalResource.hpp", "d3/d30/LocalResource_8hpp.html", [
       [ "LocalResource", "d5/db8/classdart_1_1common_1_1LocalResource.html", "d5/db8/classdart_1_1common_1_1LocalResource" ]
@@ -54,7 +58,9 @@ var dir_038ecf057a57cc1982efaa71edfdbdcb =
       [ "RequiresAspect< ReqAspect >", "d5/da7/classdart_1_1common_1_1RequiresAspect_3_01ReqAspect_01_4.html", "d5/da7/classdart_1_1common_1_1RequiresAspect_3_01ReqAspect_01_4" ],
       [ "RequiresAspect< ReqAspect1, OtherReqAspects... >", "d6/d7f/classdart_1_1common_1_1RequiresAspect_3_01ReqAspect1_00_01OtherReqAspects_8_8_8_01_4.html", null ]
     ] ],
+    [ "Resource.cpp", "d5/d63/Resource_8cpp.html", null ],
     [ "Resource.hpp", "d7/d6a/Resource_8hpp.html", "d7/d6a/Resource_8hpp" ],
+    [ "ResourceRetriever.cpp", "d2/d09/ResourceRetriever_8cpp.html", null ],
     [ "ResourceRetriever.hpp", "da/d83/ResourceRetriever_8hpp.html", "da/d83/ResourceRetriever_8hpp" ],
     [ "Signal.cpp", "d1/de5/Signal_8cpp.html", null ],
     [ "Signal.hpp", "d8/d84/Signal_8hpp.html", [
@@ -64,6 +70,9 @@ var dir_038ecf057a57cc1982efaa71edfdbdcb =
       [ "Signal< _Res(_ArgTypes...), Combiner >", "d5/d40/classdart_1_1common_1_1Signal_3_01__Res_07__ArgTypes_8_8_8_08_00_01Combiner_01_4.html", "d5/d40/classdart_1_1common_1_1Signal_3_01__Res_07__ArgTypes_8_8_8_08_00_01Combiner_01_4" ],
       [ "Signal< void(_ArgTypes...)>", "d4/de2/classdart_1_1common_1_1Signal_3_01void_07__ArgTypes_8_8_8_08_4.html", "d4/de2/classdart_1_1common_1_1Signal_3_01void_07__ArgTypes_8_8_8_08_4" ],
       [ "SlotRegister", "d4/ded/classdart_1_1common_1_1SlotRegister.html", "d4/ded/classdart_1_1common_1_1SlotRegister" ]
+    ] ],
+    [ "Singleton.hpp", "de/d21/Singleton_8hpp.html", [
+      [ "Singleton", "d4/d72/classdart_1_1common_1_1Singleton.html", "d4/d72/classdart_1_1common_1_1Singleton" ]
     ] ],
     [ "SmartPointer.hpp", "d9/d30/common_2SmartPointer_8hpp.html", "d9/d30/common_2SmartPointer_8hpp" ],
     [ "SpecializedForAspect.hpp", "da/dfe/SpecializedForAspect_8hpp.html", [

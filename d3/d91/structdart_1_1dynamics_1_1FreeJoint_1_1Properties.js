@@ -6,6 +6,7 @@ var structdart_1_1dynamics_1_1FreeJoint_1_1Properties =
     [ "Vector", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#ad750b77a3c9ac4003d37f4d60fa618bb", null ],
     [ "Properties", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#aef4bec43a41fdcf7c646a901797386da", null ],
     [ "~Properties", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#a1807340ff846f523f8872fe128d75771", null ],
+    [ "createShared", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#ac8853b9c04f4df4ede68cfa90bbd611a", null ],
     [ "mAccelerationLowerLimits", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#a06d43dbf06642ee4f5a6f2fc54fe14b9", null ],
     [ "mAccelerationUpperLimits", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#a72fb726ca6b6e525613b14ff7f3834cc", null ],
     [ "mActuatorType", "d3/d91/structdart_1_1dynamics_1_1FreeJoint_1_1Properties.html#a7ccdb96b4f4dbb9389b8252252db095a", null ],

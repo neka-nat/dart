@@ -1,12 +1,12 @@
 var classdart_1_1planning_1_1LinearPathSegment =
 [
     [ "LinearPathSegment", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a2f7c0c41debfa726eb57290051216b6f", null ],
-    [ "clone", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#ae92bfb152c405bec5b2c555ec8583959", null ],
-    [ "getConfig", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a1c0254f077c60dd408b78c9f6df86e3a", null ],
-    [ "getCurvature", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a86a2cbf1b3154069a58396f7bb2f72fa", null ],
-    [ "getLength", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a89454471747e1f1d343309f8bc126831", null ],
-    [ "getSwitchingPoints", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#ac2e8a480f96178c658234beaf8bb9f05", null ],
-    [ "getTangent", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#ae99384182e454b92462d14daf63579ab", null ],
+    [ "clone", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a928dcbe82ba92e55e28f3bec19a0803a", null ],
+    [ "getConfig", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#ae55b1aa85a779c4db7d0f11e9d556041", null ],
+    [ "getCurvature", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a9f3a687c787fc2c7a8cb3a01a174fd1d", null ],
+    [ "getLength", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a6fcb97cb19c4044d32fcbe324c2ee738", null ],
+    [ "getSwitchingPoints", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a49c2ec82bb4c7387a4a18b4f114b4f0b", null ],
+    [ "getTangent", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a6627f202f1859b39fe25918c6c9abd58", null ],
     [ "end", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#ac445dbc42641ffb4f7641c72d294e736", null ],
     [ "length", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a4fc83115b6a411a0ed3438be6fc198dc", null ],
     [ "position", "d9/dda/classdart_1_1planning_1_1LinearPathSegment.html#a0dc43b15b057edd6057addb68507f857", null ],

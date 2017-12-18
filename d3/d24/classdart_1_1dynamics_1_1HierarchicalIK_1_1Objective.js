@@ -7,7 +7,7 @@ var classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective =
     [ "evalGradient", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#abaa94e0ae81238aac65e5dbddaeaeef1", null ],
     [ "evalGradient", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#aecbed757bbfd434e6f018845d687b79b", null ],
     [ "evalHessian", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#abfc65b2d36505b795fbd8c1c40308f58", null ],
-    [ "getName", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#afc47660e5f3588d3d52f525073b9d65b", null ],
+    [ "getName", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#ab130cc447a1c91b62f7516856c2e8c46", null ],
     [ "setName", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#a13bdde1487d19fcc5e32d634c7303d1f", null ],
     [ "mGradCache", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#ac197d1c8e2d500de782c1e76daa82006", null ],
     [ "mIK", "d3/d24/classdart_1_1dynamics_1_1HierarchicalIK_1_1Objective.html#a8780206879ed5ae6cf7f38d1d125ac60", null ],

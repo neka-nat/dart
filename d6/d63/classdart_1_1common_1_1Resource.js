@@ -8,6 +8,7 @@ var classdart_1_1common_1_1Resource =
     [ "~Resource", "d6/d63/classdart_1_1common_1_1Resource.html#afc35a4d9647b1b03f35b395a14bb3acd", null ],
     [ "getSize", "d6/d63/classdart_1_1common_1_1Resource.html#af64099bf4574c8fc66cce5af424e774a", null ],
     [ "read", "d6/d63/classdart_1_1common_1_1Resource.html#a89f0a5cccf9c35b70474afe0a78aabe3", null ],
+    [ "readAll", "d6/d63/classdart_1_1common_1_1Resource.html#a7ebeaf00964c40baba8e2b6d0942f8e7", null ],
     [ "seek", "d6/d63/classdart_1_1common_1_1Resource.html#afb0be90881f133011b5045c12e1d199f", null ],
     [ "tell", "d6/d63/classdart_1_1common_1_1Resource.html#a4095b004f79d6519e472e5f6b6e8c0d2", null ]
 ];
