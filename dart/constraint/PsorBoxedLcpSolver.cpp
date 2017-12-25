@@ -30,16 +30,11 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "dart/constraint/PgsBoxedLcpSolver.hpp"
+#include "dart/constraint/PsorBoxedLcpSolver.hpp"
 
 #include <cmath>
 #include "dart/external/odelcpsolver/lcp.h"
 #include "dart/math/Constants.hpp"
-
-//#include "dart/external/odelcpsolver/odeconfig.h"
-//#include "dart/external/odelcpsolver/lcp.h"
-#include "dart/external/odelcpsolver/matrix.h"
-//#include "dart/external/odelcpsolver/misc.h"
 
 #define PGS_EPSILON 10e-9
 
@@ -47,9 +42,10 @@ namespace dart {
 namespace constraint {
 
 //==============================================================================
-PgsBoxedLcpSolver::Option::Option(
-    int itermax, double eps_ea, double eps_res, double eps_div)
+PsorBoxedLcpSolver::Option::Option(
+    int itermax, double sor_w, double eps_ea, double eps_res, double eps_div)
   : mMaxIteration(itermax),
+    sor_w(sor_w),
     eps_ea(eps_ea),
     eps_res(eps_res),
     eps_div(eps_div)
@@ -58,34 +54,28 @@ PgsBoxedLcpSolver::Option::Option(
 }
 
 //==============================================================================
-void PgsBoxedLcpSolver::solve(int n,
+void PsorBoxedLcpSolver::solve(int n,
     double* A,
     double* x,
     double* b,
-    int nub,
+    int /*nub*/,
     double* lo,
     double* hi,
     int* findex)
 {
   const int nskip = dPAD(n);
 
-  // if all the variables are unbounded then we can just factor, solve,
-  // and return
-  if (nub >= n) {
-    dReal *d = new dReal[n];
-    dSetZero (d, n);
-
-    dFactorLDLT (A, d, n, nskip);
-    dSolveLDLT (A, d, b, n, nskip);
-    memcpy (x, b, n*sizeof(dReal));
-
-    return;
-  }
+  // LDLT solver will work !!!
+  //if (nub == n)
+  //{
+  //	return LDLTSolver(n,nskip,A,x,b)
+  //}
 
   int i, j, iter, idx, n_new;
   bool sentinel;
   double old_x, new_x, hi_tmp, lo_tmp, dummy, ea;
   double * A_ptr;
+  double one_minus_sor_w = 1.0 - (mOption.sor_w);
 
   //--- ORDERING & SCALING & INITIAL LOOP & Test
   int* order = new int[n];
@@ -163,7 +153,7 @@ void PgsBoxedLcpSolver::solve(int n,
   }
 
   //--- ITERATION LOOP
-  for (iter = 1 ; iter < mOption.mMaxIteration ; iter++)
+  for (iter = 1 ; iter < mOption.mMaxIteration; iter++)
   {
     //--- RANDOMLY_REORDER_CONSTRAINTS
 #if LCP_PGS_RANDOMLY_REORDER_CONSTRAINTS
@@ -196,6 +186,8 @@ void PgsBoxedLcpSolver::solve(int n,
       for (j = idx + 1 ; j < n ; j++)
         new_x -= A_ptr[j]*x[j];
 
+      new_x = (mOption.sor_w * new_x) + (one_minus_sor_w * old_x);
+
       if (findex[idx] >= 0)	// friction index
       {
         hi_tmp = hi[idx] * x[findex[idx]];
@@ -218,7 +210,7 @@ void PgsBoxedLcpSolver::solve(int n,
           x[idx] = new_x;
       }
 
-      if (sentinel && std::abs(x[idx]) > mOption.eps_div)
+      if ( sentinel && std::abs(x[idx]) > mOption.eps_div)
       {
         ea = std::abs((x[idx] - old_x)/x[idx]);
         if (ea > mOption.eps_ea)
@@ -236,7 +228,7 @@ void PgsBoxedLcpSolver::solve(int n,
 }
 
 //==============================================================================
-bool PgsBoxedLcpSolver::canSolve(int n, double* A)
+bool PsorBoxedLcpSolver::canSolve(int n, double* A)
 {
   const int nskip = dPAD(n);
 
@@ -257,13 +249,13 @@ bool PgsBoxedLcpSolver::canSolve(int n, double* A)
 }
 
 //==============================================================================
-void PgsBoxedLcpSolver::setOption(const PgsBoxedLcpSolver::Option& option)
+void PsorBoxedLcpSolver::setOption(const PsorBoxedLcpSolver::Option& option)
 {
   mOption = option;
 }
 
 //==============================================================================
-const PgsBoxedLcpSolver::Option& PgsBoxedLcpSolver::getOption() const
+const PsorBoxedLcpSolver::Option& PsorBoxedLcpSolver::getOption() const
 {
   return mOption;
 }

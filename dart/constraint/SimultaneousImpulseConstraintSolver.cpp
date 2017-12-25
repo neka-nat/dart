@@ -54,7 +54,7 @@ SimultaneousImpulseConstraintSolver::SimultaneousImpulseConstraintSolver(
     double timeStep, BoxedLcpSolverPtr mlcpSolver)
   : ConstraintSolver(timeStep), mBoxedLcpSolver(std::move(mlcpSolver))
 {
-  if (!mlcpSolver)
+  if (!mBoxedLcpSolver)
     mBoxedLcpSolver = std::make_shared<DantzigBoxedLcpSolver>();
 }
 

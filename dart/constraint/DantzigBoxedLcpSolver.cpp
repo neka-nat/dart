@@ -51,5 +51,12 @@ void DantzigBoxedLcpSolver::solve(
   dSolveLCP(n, A, x, b, nullptr, 0, lo, hi, findex);
 }
 
+//==============================================================================
+bool DantzigBoxedLcpSolver::canSolve(int /*n*/, double* /*A*/)
+{
+  // TODO(JS): Not implemented.
+  return true;
+}
+
 }  // namespace constraint
 }  // namespace dart

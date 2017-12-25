@@ -53,6 +53,8 @@ public:
       double* lo,
       double* hi,
       int* findex) = 0;
+
+  virtual bool canSolve(int n, double* A) = 0;
 };
 
 } // namespace constraint

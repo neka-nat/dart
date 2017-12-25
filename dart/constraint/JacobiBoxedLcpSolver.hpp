@@ -30,31 +30,57 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_COMMON_SMARTPOINTER_HPP_
-#define DART_COMMON_SMARTPOINTER_HPP_
+#ifndef DART_CONSTRAINT_JACOBIBOXEDLCPSOLVER_HPP_
+#define DART_CONSTRAINT_JACOBIBOXEDLCPSOLVER_HPP_
 
-#include <memory>
+#include "dart/constraint/BoxedLcpSolver.hpp"
 
-// -- Standard shared/weak pointers --
-// Define a typedef for const and non-const version of shared_ptr and weak_ptr
-// for the class X
-#define DART_COMMON_MAKE_SHARED_WEAK( X )\
-  class X ;\
-  typedef std::shared_ptr< X >       X ## Ptr;\
-  typedef std::shared_ptr< const X > Const ## X ## Ptr;\
-  typedef std::weak_ptr< X >         Weak ## X ## Ptr;\
-  typedef std::weak_ptr< const X >   WeakConst ## X ## Ptr;
+namespace dart {
+namespace constraint {
 
-// -- Standard shared/weak/unique pointers --
-// Define a typedef for const and non-const version of shared_ptr, weak_ptr, and
-// unique_ptr for the class X
-#define DART_COMMON_MAKE_SMARTPOINTERS( X )\
-  class X ;\
-  using X ## Ptr                = std::shared_ptr< X >;\
-  using Const ## X ## Ptr       = std::shared_ptr< const X >;\
-  using Weak ## X ## Ptr        = std::weak_ptr< X >;\
-  using WeakConst ## X ## Ptr   = std::weak_ptr< const X >;\
-  using Unique ## X ## Ptr      = std::unique_ptr< X >;\
-  using UniqueConst ## X ## Ptr = std::unique_ptr< const X >;\
+/// Implementation of projected Gauss-Seidel (PGS) LCP solver.
+class JacobiBoxedLcpSolver : public BoxedLcpSolver
+{
+public:
+  struct Option
+  {
+    int mMaxIteration;
+    double sor_w;
+    double eps_ea;
+    double eps_res;
+    double eps_div;
 
-#endif // DART_COMMON_SMARTPOINTER_HPP_
+    Option(
+        int mMaxIteration = 30,
+        double sor_w = 0.9,
+        double eps_ea = 10e-3,
+        double eps_res = 10e-6,
+        double eps_div = 10e-9);
+  };
+
+  // Documentation inherited.
+  void solve(int n,
+      double* A,
+      double* x,
+      double* b,
+      int nub,
+      double* lo,
+      double* hi,
+      int* findex) override;
+
+  // Documentation inherited.
+  bool canSolve(int n, double* A) override;
+
+  void setOption(const Option& option);
+
+  const Option& getOption() const;
+
+protected:
+  Option mOption;
+};
+
+} // namespace constraint
+} // namespace dart
+
+#endif // DART_CONSTRAINT_JACOBIBOXEDLCPSOLVER_HPP_
+

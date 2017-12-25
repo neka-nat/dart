@@ -15,6 +15,12 @@
  *     copyright notice, this list of conditions and the following
  *     disclaimer in the documentation and/or other materials provided
  *     with the distribution.
+ *   * This code incorporates portions of Open Dynamics Engine
+ *     (Copyright (c) 2001-2004, Russell L. Smith. All rights
+ *     reserved.) and portions of FCL (Copyright (c) 2011, Willow
+ *     Garage, Inc. All rights reserved.), which were released under
+ *     the same BSD license as below
+ *
  *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
  *   CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
  *   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -30,31 +36,22 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_COMMON_SMARTPOINTER_HPP_
-#define DART_COMMON_SMARTPOINTER_HPP_
+#ifndef DART_SIMULATION_DETAIL_WORLD_IMPL_HPP_
+#define DART_SIMULATION_DETAIL_WORLD_IMPL_HPP_
 
-#include <memory>
+#include "dart/simulation/World.hpp"
 
-// -- Standard shared/weak pointers --
-// Define a typedef for const and non-const version of shared_ptr and weak_ptr
-// for the class X
-#define DART_COMMON_MAKE_SHARED_WEAK( X )\
-  class X ;\
-  typedef std::shared_ptr< X >       X ## Ptr;\
-  typedef std::shared_ptr< const X > Const ## X ## Ptr;\
-  typedef std::weak_ptr< X >         Weak ## X ## Ptr;\
-  typedef std::weak_ptr< const X >   WeakConst ## X ## Ptr;
+namespace dart {
+namespace simulation {
 
-// -- Standard shared/weak/unique pointers --
-// Define a typedef for const and non-const version of shared_ptr, weak_ptr, and
-// unique_ptr for the class X
-#define DART_COMMON_MAKE_SMARTPOINTERS( X )\
-  class X ;\
-  using X ## Ptr                = std::shared_ptr< X >;\
-  using Const ## X ## Ptr       = std::shared_ptr< const X >;\
-  using Weak ## X ## Ptr        = std::weak_ptr< X >;\
-  using WeakConst ## X ## Ptr   = std::weak_ptr< const X >;\
-  using Unique ## X ## Ptr      = std::unique_ptr< X >;\
-  using UniqueConst ## X ## Ptr = std::unique_ptr< const X >;\
+//==============================================================================
+template <typename... Args>
+WorldPtr World::create(Args&&... args)
+{
+  return std::make_shared<World>(std::forward<Args>(args)...);
+}
 
-#endif // DART_COMMON_SMARTPOINTER_HPP_
+}  // namespace simulation
+}  // namespace dart
+
+#endif // DART_SIMULATION_DETAIL_WORLD_IMPL_HPP_

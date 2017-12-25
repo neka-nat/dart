@@ -22,39 +22,25 @@
  *   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
  *   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
  *   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- *   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- *   USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ *   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES) LOSS OF
+ *   USE, DATA, OR PROFITS) OR BUSINESS INTERRUPTION) HOWEVER CAUSED
  *   AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
  *   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  *   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_COMMON_SMARTPOINTER_HPP_
-#define DART_COMMON_SMARTPOINTER_HPP_
+#ifndef DART_SIMULATION_SMARTPOINTER_HPP_
+#define DART_SIMULATION_SMARTPOINTER_HPP_
 
-#include <memory>
+#include "dart/common/SmartPointer.hpp"
 
-// -- Standard shared/weak pointers --
-// Define a typedef for const and non-const version of shared_ptr and weak_ptr
-// for the class X
-#define DART_COMMON_MAKE_SHARED_WEAK( X )\
-  class X ;\
-  typedef std::shared_ptr< X >       X ## Ptr;\
-  typedef std::shared_ptr< const X > Const ## X ## Ptr;\
-  typedef std::weak_ptr< X >         Weak ## X ## Ptr;\
-  typedef std::weak_ptr< const X >   WeakConst ## X ## Ptr;
+namespace dart {
+namespace simulation {
 
-// -- Standard shared/weak/unique pointers --
-// Define a typedef for const and non-const version of shared_ptr, weak_ptr, and
-// unique_ptr for the class X
-#define DART_COMMON_MAKE_SMARTPOINTERS( X )\
-  class X ;\
-  using X ## Ptr                = std::shared_ptr< X >;\
-  using Const ## X ## Ptr       = std::shared_ptr< const X >;\
-  using Weak ## X ## Ptr        = std::weak_ptr< X >;\
-  using WeakConst ## X ## Ptr   = std::weak_ptr< const X >;\
-  using Unique ## X ## Ptr      = std::unique_ptr< X >;\
-  using UniqueConst ## X ## Ptr = std::unique_ptr< const X >;\
+DART_COMMON_MAKE_SMARTPOINTERS(World)
 
-#endif // DART_COMMON_SMARTPOINTER_HPP_
+} // namespace simulation
+} // namespace dart
+
+#endif // DART_SIMULATION_SMARTPOINTER_HPP_

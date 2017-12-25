@@ -38,18 +38,22 @@
 namespace dart {
 namespace constraint {
 
+/// Implementation of projected Gauss-Seidel (PGS) LCP solver.
 class PgsBoxedLcpSolver : public BoxedLcpSolver
 {
 public:
   struct Option
   {
-    int itermax;
-    double sor_w;
+    int mMaxIteration;
     double eps_ea;
     double eps_res;
     double eps_div;
 
-    void setDefault();
+    Option(
+        int mMaxIteration = 30,
+        double eps_ea = 1e-3,
+        double eps_res = 1e-6,
+        double eps_div = 1e-9);
   };
 
   // Documentation inherited.
@@ -61,6 +65,9 @@ public:
       double* lo,
       double* hi,
       int* findex) override;
+
+  // Documentation inherited.
+  bool canSolve(int n, double* A) override;
 
   void setOption(const Option& option);
 

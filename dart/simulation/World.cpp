@@ -71,7 +71,6 @@ World::World(const std::string& _name)
 //==============================================================================
 World::~World()
 {
-  delete mConstraintSolver;
   delete mRecording;
 
   for(common::Connection& connection : mNameConnectionsForSkeletons)
@@ -517,9 +516,25 @@ const collision::CollisionResult& World::getLastCollisionResult() const
 }
 
 //==============================================================================
+void World::setConstraintSolver(constraint::UniqueConstraintSolverPtr solver)
+{
+  if (!solver)
+  {
+    dtwarn << "[World::setConstraintSolver] nullptr for constraint solver is "
+           << "not allowed. Doing nothing.";
+    return;
+  }
+
+  solver->removeAllSkeletons();
+  solver->addSkeletons(mConstraintSolver->getSkeletons());
+
+  mConstraintSolver = std::move(solver);
+}
+
+//==============================================================================
 constraint::ConstraintSolver* World::getConstraintSolver() const
 {
-  return mConstraintSolver;
+  return mConstraintSolver.get();
 }
 
 //==============================================================================

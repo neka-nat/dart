@@ -51,6 +51,9 @@ public:
       double* lo,
       double* hi,
       int* findex) override;
+
+  // Documentation inherited.
+  bool canSolve(int n, double* A) override;
 };
 
 } // namespace constraint

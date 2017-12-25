@@ -109,6 +109,12 @@ void ConstraintSolver::addSkeletons(const std::vector<SkeletonPtr>& skeletons)
 }
 
 //==============================================================================
+const std::vector<SkeletonPtr>& ConstraintSolver::getSkeletons() const
+{
+  return mSkeletons;
+}
+
+//==============================================================================
 void ConstraintSolver::removeSkeleton(const SkeletonPtr& skeleton)
 {
   assert(skeleton
