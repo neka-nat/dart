@@ -30,66 +30,48 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_CONSTRAINT_PGSLCPSOLVER_HPP_
-#define DART_CONSTRAINT_PGSLCPSOLVER_HPP_
+#ifndef DART_CONSTRAINT_PGSBOXEDLCPSOLVER_HPP_
+#define DART_CONSTRAINT_PGSBOXEDLCPSOLVER_HPP_
 
-#include <cstddef>
-
-#include "dart/config.hpp"
-#include "dart/constraint/LCPSolver.hpp"
+#include "dart/constraint/BoxedLcpSolver.hpp"
 
 namespace dart {
 namespace constraint {
 
-/// \deprecated This header has been deprecated in DART 6.4. Please include
-/// PgsBoxedLcpSolver.hpp intead.
-///
-/// PGSLCPSolver
-class PGSLCPSolver : public LCPSolver
+class PgsBoxedLcpSolver : public BoxedLcpSolver
 {
 public:
-  /// Constructor
-  explicit PGSLCPSolver(double _timestep);
+  struct Option
+  {
+    int itermax;
+    double sor_w;
+    double eps_ea;
+    double eps_res;
+    double eps_div;
 
-  /// Constructor
-  virtual ~PGSLCPSolver();
+    void setDefault();
+  };
 
-  // Documentation inherited
-  void solve(ConstrainedGroup* _group) override;
+  // Documentation inherited.
+  void solve(int n,
+      double* A,
+      double* x,
+      double* b,
+      int nub,
+      double* lo,
+      double* hi,
+      int* findex) override;
 
-#ifndef NDEBUG
-private:
-  /// Return true if the matrix is symmetric
-  bool isSymmetric(std::size_t _n, double* _A);
+  void setOption(const Option& option);
 
-  /// Return true if the diagonla block of matrix is symmetric
-  bool isSymmetric(std::size_t _n, double* _A, std::size_t _begin, std::size_t _end);
+  const Option& getOption() const;
 
-  /// Print debug information
-  void print(std::size_t _n, double* _A, double* _x, double* _lo, double* _hi,
-             double* _b, double* w, int* _findex);
-#endif
+protected:
+  Option mOption;
 };
-
-struct PGSOption
-{
-  int itermax;
-  double sor_w;
-  double eps_ea;
-  double eps_res;
-  double eps_div;
-
-  void setDefault();
-};
-
-bool solvePGS(int n, int nskip, int /*nub*/, double* A,
-                            double* x, double * b,
-                            double * lo, double * hi, int * findex,
-                            PGSOption * option);
-
 
 } // namespace constraint
 } // namespace dart
 
-#endif  // DART_CONSTRAINT_PGSLCPSOLVER_HPP_
+#endif // DART_CONSTRAINT_PGSBOXEDLCPSOLVER_HPP_
 

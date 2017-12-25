@@ -45,7 +45,7 @@
 #include "dart/common/Console.hpp"
 #include "dart/integration/SemiImplicitEulerIntegrator.hpp"
 #include "dart/dynamics/Skeleton.hpp"
-#include "dart/constraint/ConstraintSolver.hpp"
+#include "dart/constraint/SimultaneousImpulseConstraintSolver.hpp"
 #include "dart/collision/CollisionGroup.hpp"
 
 namespace dart {
@@ -60,7 +60,8 @@ World::World(const std::string& _name)
     mTimeStep(0.001),
     mTime(0.0),
     mFrame(0),
-    mConstraintSolver(new constraint::ConstraintSolver(mTimeStep)),
+    mConstraintSolver(
+      new constraint::SimultaneousImpulseConstraintSolver(mTimeStep)),
     mRecording(new Recording(mSkeletons)),
     onNameChanged(mNameChangedSignal)
 {

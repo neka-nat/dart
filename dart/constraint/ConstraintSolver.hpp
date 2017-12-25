@@ -138,15 +138,20 @@ public:
   const collision::CollisionResult& getLastCollisionResult() const;
 
   /// Set LCP solver
+  DART_DEPRECATED(6.4)
   void setLCPSolver(std::unique_ptr<LCPSolver> _lcpSolver);
 
   /// Get LCP solver
+  DART_DEPRECATED(6.4)
   LCPSolver* getLCPSolver() const;
 
   /// Solve constraint impulses and apply them to the skeletons
   void solve();
 
-private:
+protected:
+  // TODO(JS): Docstring
+  virtual void solveConstrainedGroup(ConstrainedGroup& group) = 0;
+
   /// Check if the skeleton is contained in this solver
   bool containSkeleton(const dynamics::ConstSkeletonPtr& _skeleton) const;
 
@@ -187,9 +192,6 @@ private:
 
   /// Time step
   double mTimeStep;
-
-  /// LCP solver
-  std::unique_ptr<LCPSolver> mLCPSolver;
 
   /// Skeleton list
   std::vector<dynamics::SkeletonPtr> mSkeletons;

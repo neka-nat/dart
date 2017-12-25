@@ -30,66 +30,51 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_CONSTRAINT_PGSLCPSOLVER_HPP_
-#define DART_CONSTRAINT_PGSLCPSOLVER_HPP_
+#ifndef DART_CONSTRAINT_SIMULTANEOUSIMPULSECONSTRAINTSOLVER_HPP_
+#define DART_CONSTRAINT_SIMULTANEOUSIMPULSECONSTRAINTSOLVER_HPP_
 
-#include <cstddef>
-
-#include "dart/config.hpp"
-#include "dart/constraint/LCPSolver.hpp"
+#include "dart/constraint/ConstraintSolver.hpp"
+#include "dart/constraint/SmartPointer.hpp"
 
 namespace dart {
 namespace constraint {
 
-/// \deprecated This header has been deprecated in DART 6.4. Please include
-/// PgsBoxedLcpSolver.hpp intead.
-///
-/// PGSLCPSolver
-class PGSLCPSolver : public LCPSolver
+class SimultaneousImpulseConstraintSolver : public ConstraintSolver
 {
 public:
   /// Constructor
-  explicit PGSLCPSolver(double _timestep);
+  SimultaneousImpulseConstraintSolver(
+      double timeStep,
+      BoxedLcpSolverPtr mlcpSolver = nullptr);
 
-  /// Constructor
-  virtual ~PGSLCPSolver();
+  /// Sets boxed LCP (BLCP) solver
+  void setBoxedLcpSolver(BoxedLcpSolverPtr lcpSolver);
 
-  // Documentation inherited
-  void solve(ConstrainedGroup* _group) override;
+  /// Returns boxed LCP (BLCP) solver
+  ConstBoxedLcpSolverPtr getBoxedLcpSolver() const;
+
+protected:
+  // Documentation inherited.
+  void solveConstrainedGroup(ConstrainedGroup& group) override;
+
+  BoxedLcpSolverPtr mBoxedLcpSolver;
 
 #ifndef NDEBUG
 private:
   /// Return true if the matrix is symmetric
-  bool isSymmetric(std::size_t _n, double* _A);
+  bool isSymmetric(std::size_t n, double* A);
 
   /// Return true if the diagonla block of matrix is symmetric
-  bool isSymmetric(std::size_t _n, double* _A, std::size_t _begin, std::size_t _end);
+  bool isSymmetric(std::size_t n, double* A, std::size_t begin, std::size_t end);
 
   /// Print debug information
-  void print(std::size_t _n, double* _A, double* _x, double* _lo, double* _hi,
-             double* _b, double* w, int* _findex);
+  void print(std::size_t n, double* A, double* x, double* lo, double* hi,
+             double* b, double* w, int* findex);
 #endif
 };
-
-struct PGSOption
-{
-  int itermax;
-  double sor_w;
-  double eps_ea;
-  double eps_res;
-  double eps_div;
-
-  void setDefault();
-};
-
-bool solvePGS(int n, int nskip, int /*nub*/, double* A,
-                            double* x, double * b,
-                            double * lo, double * hi, int * findex,
-                            PGSOption * option);
-
 
 } // namespace constraint
 } // namespace dart
 
-#endif  // DART_CONSTRAINT_PGSLCPSOLVER_HPP_
+#endif  // DART_CONSTRAINT_SIMULTANEOUSIMPULSECONSTRAINTSOLVER_HPP_
 

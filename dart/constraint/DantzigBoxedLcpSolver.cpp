@@ -30,66 +30,26 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_CONSTRAINT_PGSLCPSOLVER_HPP_
-#define DART_CONSTRAINT_PGSLCPSOLVER_HPP_
+#include "dart/constraint/DantzigBoxedLcpSolver.hpp"
 
-#include <cstddef>
-
-#include "dart/config.hpp"
-#include "dart/constraint/LCPSolver.hpp"
+#include "dart/external/odelcpsolver/lcp.h"
 
 namespace dart {
 namespace constraint {
 
-/// \deprecated This header has been deprecated in DART 6.4. Please include
-/// PgsBoxedLcpSolver.hpp intead.
-///
-/// PGSLCPSolver
-class PGSLCPSolver : public LCPSolver
+//==============================================================================
+void DantzigBoxedLcpSolver::solve(
+    int n,
+    double* A,
+    double* x,
+    double* b,
+    int /*nub*/,
+    double* lo,
+    double* hi,
+    int* findex)
 {
-public:
-  /// Constructor
-  explicit PGSLCPSolver(double _timestep);
+  dSolveLCP(n, A, x, b, nullptr, 0, lo, hi, findex);
+}
 
-  /// Constructor
-  virtual ~PGSLCPSolver();
-
-  // Documentation inherited
-  void solve(ConstrainedGroup* _group) override;
-
-#ifndef NDEBUG
-private:
-  /// Return true if the matrix is symmetric
-  bool isSymmetric(std::size_t _n, double* _A);
-
-  /// Return true if the diagonla block of matrix is symmetric
-  bool isSymmetric(std::size_t _n, double* _A, std::size_t _begin, std::size_t _end);
-
-  /// Print debug information
-  void print(std::size_t _n, double* _A, double* _x, double* _lo, double* _hi,
-             double* _b, double* w, int* _findex);
-#endif
-};
-
-struct PGSOption
-{
-  int itermax;
-  double sor_w;
-  double eps_ea;
-  double eps_res;
-  double eps_div;
-
-  void setDefault();
-};
-
-bool solvePGS(int n, int nskip, int /*nub*/, double* A,
-                            double* x, double * b,
-                            double * lo, double * hi, int * findex,
-                            PGSOption * option);
-
-
-} // namespace constraint
-} // namespace dart
-
-#endif  // DART_CONSTRAINT_PGSLCPSOLVER_HPP_
-
+}  // namespace constraint
+}  // namespace dart
