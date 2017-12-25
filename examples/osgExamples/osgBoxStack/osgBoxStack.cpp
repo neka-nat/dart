@@ -30,9 +30,84 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <iostream>
+
 #include <dart/dart.hpp>
+#include <dart/utils/utils.hpp>
 #include <dart/gui/osg/osg.hpp>
 #include <dart/external/imgui/imgui.h>
+
+using namespace dart;
+
+//==============================================================================
+dynamics::SkeletonPtr createBox(const Eigen::Vector3d& position)
+{
+  dynamics::SkeletonPtr boxSkel = dynamics::Skeleton::create("box");
+
+  // Give the floor a body
+  dynamics::BodyNodePtr boxBody =
+      boxSkel->createJointAndBodyNodePair<dynamics::WeldJoint>(nullptr).second;
+
+  // Give the body a shape
+  double boxWidth = 1.0;
+  double boxDepth = 1.0;
+  double boxHeight = 0.5;
+  auto boxShape = std::make_shared<dynamics::BoxShape>(
+      Eigen::Vector3d(boxWidth, boxDepth, boxHeight));
+  dynamics::ShapeNode* shapeNode
+      = boxBody->createShapeNodeWith<
+          dynamics::VisualAspect,
+          dynamics::CollisionAspect,
+          dynamics::DynamicsAspect>(boxShape);
+  shapeNode->getVisualAspect()->setColor(dart::math::randomVector<3>(0.0, 1.0));
+
+  // Put the body into position
+  Eigen::Isometry3d tf = Eigen::Isometry3d::Identity();
+  tf.translation() = position;
+  boxBody->getParentJoint()->setTransformFromParentBodyNode(tf);
+
+  return boxSkel;
+}
+
+//==============================================================================
+std::vector<dynamics::SkeletonPtr> createBoxStack(std::size_t numBoxes)
+{
+  std::vector<dynamics::SkeletonPtr> boxSkels(numBoxes);
+
+  for (auto i = 0u; i < numBoxes; ++i)
+    boxSkels[i] = createBox(Eigen::Vector3d(0.0, 0.0, 0.25 + i * 0.5));
+
+  return boxSkels;
+}
+
+//==============================================================================
+dynamics::SkeletonPtr createFloor()
+{
+  dynamics::SkeletonPtr floor = dynamics::Skeleton::create("floor");
+
+  // Give the floor a body
+  dynamics::BodyNodePtr body =
+      floor->createJointAndBodyNodePair<dynamics::WeldJoint>(nullptr).second;
+
+  // Give the body a shape
+  double floorWidth = 10.0;
+  double floorHeight = 0.01;
+  auto box = std::make_shared<dynamics::BoxShape>(
+      Eigen::Vector3d(floorWidth, floorWidth, floorHeight));
+  dynamics::ShapeNode* shapeNode
+      = body->createShapeNodeWith<
+          dynamics::VisualAspect,
+          dynamics::CollisionAspect,
+          dynamics::DynamicsAspect>(box);
+  shapeNode->getVisualAspect()->setColor(dart::Color::LightGray());
+
+  // Put the body into position
+  Eigen::Isometry3d tf = Eigen::Isometry3d::Identity();
+  tf.translation() = Eigen::Vector3d(0.0, 0.0, -floorHeight / 2.0);
+  body->getParentJoint()->setTransformFromParentBodyNode(tf);
+
+  return floor;
+}
 
 //==============================================================================
 class CustomWorldNode : public dart::gui::osg::WorldNode
@@ -163,7 +238,7 @@ public:
   void render() override
   {
     ImGui::SetNextWindowPos(ImVec2(10,20));
-    if (!ImGui::Begin("Tinkertoy Control", nullptr, ImVec2(240, 320), 0.5f,
+    if (!ImGui::Begin("Box Stack", nullptr, ImVec2(240, 320), 0.5f,
                       ImGuiWindowFlags_NoResize |
                       ImGuiWindowFlags_MenuBar |
                       ImGuiWindowFlags_HorizontalScrollbar))
@@ -191,7 +266,7 @@ public:
       ImGui::EndMenuBar();
     }
 
-    ImGui::Text("An empty OSG example with ImGui");
+    ImGui::Text("Box stack example");
     ImGui::Spacing();
 
     if (ImGui::CollapsingHeader("Simulation", ImGuiTreeNodeFlags_DefaultOpen))
@@ -270,13 +345,12 @@ protected:
 //==============================================================================
 int main()
 {
-  // Create a world
-  dart::simulation::WorldPtr world(new dart::simulation::World);
+  simulation::WorldPtr world = simulation::World::create();
+  world->addSkeleton(createFloor());
 
-  // Add a target object to the world
-  dart::gui::osg::InteractiveFramePtr target(
-      new dart::gui::osg::InteractiveFrame(dart::dynamics::Frame::World()));
-  world->addSimpleFrame(target);
+  auto boxSkels = createBoxStack(10);
+  for (const auto& boxSkel : boxSkels)
+    world->addSkeleton(boxSkel);
 
   // Wrap a WorldNode around it
   osg::ref_ptr<CustomWorldNode> node = new CustomWorldNode(world);
@@ -289,9 +363,6 @@ int main()
   viewer.getImGuiHandler()->addWidget(
       std::make_shared<TestWidget>(&viewer, world));
 
-  // Active the drag-and-drop feature for the target
-  viewer.enableDragAndDrop(target.get());
-
   // Pass in the custom event handler
   viewer.addEventHandler(new CustomEventHandler);
 
@@ -300,13 +371,18 @@ int main()
 
   // Adjust the viewpoint of the Viewer
   viewer.getCameraManipulator()->setHomePosition(
-        ::osg::Vec3( 2.57f,  3.14f, 1.64f),
-        ::osg::Vec3( 0.00f,  0.00f, 0.00f),
-        ::osg::Vec3(-0.24f, -0.25f, 0.94f));
+      ::osg::Vec3( 12.00f,  12.00f,   9.00f),
+      ::osg::Vec3(  0.00f,   0.00f,   2.00f),
+      ::osg::Vec3(  0.00f,   0.00f,   1.00f));
+
   // We need to re-dirty the CameraManipulator by passing it into the viewer
   // again, so that the viewer knows to update its HomePosition setting
   viewer.setCameraManipulator(viewer.getCameraManipulator());
 
+//  viewer.getCameraManipulator()->home(0);
+
   // Begin running the application loop
   viewer.run();
+
+  return 0;
 }
