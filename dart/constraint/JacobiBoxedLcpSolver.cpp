@@ -33,7 +33,7 @@
 #include "dart/constraint/JacobiBoxedLcpSolver.hpp"
 
 #include <cmath>
-#include "dart/external/odelcpsolver/lcp.h"
+#include "dart/external/odelcpsolver/matrix.h"
 #include "dart/math/Constants.hpp"
 
 #define PGS_EPSILON 10e-9
@@ -54,22 +54,31 @@ JacobiBoxedLcpSolver::Option::Option(
 }
 
 //==============================================================================
-void JacobiBoxedLcpSolver::solve(int n,
+void JacobiBoxedLcpSolver::solve(
+    int n,
     double* A,
     double* x,
     double* b,
-    int /*nub*/,
+    int nub,
     double* lo,
     double* hi,
     int* findex)
 {
   const int nskip = dPAD(n);
 
-  // LDLT solver will work !!!
-  //if (nub == n)
-  //{
-  //	return LDLTSolver(n,nskip,A,x,b)
-  //}
+  // If all the variables are unbounded then we can just factor, solve, and
+  // return.R
+  if (nub >= n)
+  {
+    mDCache.resize(n);
+    std::fill(mDCache.begin(), mDCache.end(), 0);
+
+    dFactorLDLT(A, mDCache.data(), n, nskip);
+    dSolveLDLT(A, mDCache.data(), b, n, nskip);
+    std::memcpy(x, b, n*sizeof(double));
+
+    return;
+  }
 
   int i, j, iter, idx, n_new;
   bool sentinel;
@@ -228,7 +237,23 @@ void JacobiBoxedLcpSolver::solve(int n,
 }
 
 //==============================================================================
-bool JacobiBoxedLcpSolver::canSolve(int n, double* A)
+void JacobiBoxedLcpSolver::solve(Eigen::MatrixXd& A,
+    Eigen::VectorXd& x,
+    Eigen::VectorXd& b,
+    int nub,
+    const Eigen::VectorXd& lo,
+    const Eigen::VectorXd& hi)
+{
+  A;
+  x;
+  b;
+  nub;
+  lo;
+  hi;
+}
+
+//==============================================================================
+bool JacobiBoxedLcpSolver::canSolve(int n, const double* A)
 {
   const int nskip = dPAD(n);
 

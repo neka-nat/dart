@@ -33,6 +33,7 @@
 #ifndef DART_CONSTRAINT_JACOBIBOXEDLCPSOLVER_HPP_
 #define DART_CONSTRAINT_JACOBIBOXEDLCPSOLVER_HPP_
 
+#include <vector>
 #include "dart/constraint/BoxedLcpSolver.hpp"
 
 namespace dart {
@@ -68,8 +69,16 @@ public:
       double* hi,
       int* findex) override;
 
+  void solve(
+      Eigen::MatrixXd& A,
+      Eigen::VectorXd& x,
+      Eigen::VectorXd& b,
+      int nub,
+      const Eigen::VectorXd& lo,
+      const Eigen::VectorXd& hi) override;
+
   // Documentation inherited.
-  bool canSolve(int n, double* A) override;
+  bool canSolve(int n, const double* A) override;
 
   void setOption(const Option& option);
 
@@ -77,6 +86,9 @@ public:
 
 protected:
   Option mOption;
+
+  mutable std::vector<int> mOrderCache;
+  mutable std::vector<double> mDCache;
 };
 
 } // namespace constraint

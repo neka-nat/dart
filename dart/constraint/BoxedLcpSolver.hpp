@@ -33,17 +33,32 @@
 #ifndef DART_CONSTRAINT_BOXEDLCPSOLVER_HPP_
 #define DART_CONSTRAINT_BOXEDLCPSOLVER_HPP_
 
+#include <Eigen/Core>
+
 namespace dart {
 namespace constraint {
 
-/// BlcpSolver
+/*! BlcpSolver
+ *
+ *  The boxed linear complementarity problem (BLCP) is defined by
+ *
+ *  Find \f$(x, y)\f$ such that:
+ *    \f{equation*}{
+ *    \begin{cases}
+ *    A \ x + b = y \\
+ *    0 \le x \perp y \ge 0
+ *    \end{cases},
+ *    \f}
+ *  where \f$ x, y, b\f$ are vectors of size \f$n\f$ and \f$ A \f$ is a
+ *  \f$n\times n\f$ matrix.
+ */
 class BoxedLcpSolver
 {
 public:
   /// Destructor
   virtual ~BoxedLcpSolver() = default;
 
-  /// Solve constriant impulses for a constrained group
+  /// Solves constriant impulses for a constrained group
   virtual void solve(
       int n,
       double* A,
@@ -53,8 +68,27 @@ public:
       double* lo,
       double* hi,
       int* findex) = 0;
+  // Note: The function signature is ODE specific for now. Consider changing
+  // this to Eigen friendly version once own Dantzig LCP solver is available.
 
-  virtual bool canSolve(int n, double* A) = 0;
+  virtual void solve(
+      Eigen::MatrixXd& A,
+      Eigen::VectorXd& x,
+      Eigen::VectorXd& b,
+      int nub,
+      const Eigen::VectorXd& lo,
+      const Eigen::VectorXd& hi) = 0;
+
+  virtual bool canSolve(int n, const double* A) = 0;
+};
+
+class LcpErrorMetric
+{
+public:
+  bool canTermninate() const
+  {
+    return true;
+  }
 };
 
 } // namespace constraint

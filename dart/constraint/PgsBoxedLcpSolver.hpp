@@ -33,6 +33,7 @@
 #ifndef DART_CONSTRAINT_PGSBOXEDLCPSOLVER_HPP_
 #define DART_CONSTRAINT_PGSBOXEDLCPSOLVER_HPP_
 
+#include <vector>
 #include "dart/constraint/BoxedLcpSolver.hpp"
 
 namespace dart {
@@ -45,19 +46,22 @@ public:
   struct Option
   {
     int mMaxIteration;
-    double eps_ea;
-    double eps_res;
-    double eps_div;
+    double mRelativeDeltaXTolerance;
+    double mDeltaXTolerance;
+    double mEpsilonForDivision;
+    bool mRandomizeConstraintOrder;
 
     Option(
-        int mMaxIteration = 30,
-        double eps_ea = 1e-3,
-        double eps_res = 1e-6,
-        double eps_div = 1e-9);
+        int maxIteration = 30,
+        double relativeDeltaXTolerance = 1e-3,
+        double deltaXTolerance = 1e-6,
+        double epsilonForDivision = 1e-9,
+        bool randomizeConstraintOrder = false);
   };
 
   // Documentation inherited.
-  void solve(int n,
+  void solve(
+      int n,
       double* A,
       double* x,
       double* b,
@@ -66,15 +70,39 @@ public:
       double* hi,
       int* findex) override;
 
-  // Documentation inherited.
-  bool canSolve(int n, double* A) override;
+  void solve(
+      Eigen::MatrixXd& A,
+      Eigen::VectorXd& x,
+      Eigen::VectorXd& b,
+      int nub,
+      const Eigen::VectorXd& lo,
+      const Eigen::VectorXd& hi) override;
 
+  // Documentation inherited.
+  bool canSolve(int n, const double* A) override;
+
+  /// Sets options
   void setOption(const Option& option);
 
+  /// Returns options.
   const Option& getOption() const;
 
 protected:
+  void singleIterationForNormalizedA(int nskip, int* order, int n, int n_new,
+      const double* normalizedA,
+      double* x,
+      double* b,
+      double* lo,
+      double* hi,
+      int* findex,
+      bool& sentinel);
+
   Option mOption;
+
+  mutable std::vector<int> mOrderCache;
+  mutable std::vector<double> mDCache;
+  mutable Eigen::MatrixXd mNormalizedACache;
+  mutable Eigen::VectorXd mZCache;
 };
 
 } // namespace constraint

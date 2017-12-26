@@ -33,13 +33,11 @@
 #include "dart/constraint/PgsBoxedLcpSolver.hpp"
 
 #include <cmath>
-#include "dart/external/odelcpsolver/lcp.h"
-#include "dart/math/Constants.hpp"
-
-//#include "dart/external/odelcpsolver/odeconfig.h"
-//#include "dart/external/odelcpsolver/lcp.h"
+#include <cstring>
+#include <Eigen/Dense>
 #include "dart/external/odelcpsolver/matrix.h"
-//#include "dart/external/odelcpsolver/misc.h"
+#include "dart/external/odelcpsolver/misc.h"
+#include "dart/math/Constants.hpp"
 
 #define PGS_EPSILON 10e-9
 
@@ -47,18 +45,23 @@ namespace dart {
 namespace constraint {
 
 //==============================================================================
-PgsBoxedLcpSolver::Option::Option(
-    int itermax, double eps_ea, double eps_res, double eps_div)
-  : mMaxIteration(itermax),
-    eps_ea(eps_ea),
-    eps_res(eps_res),
-    eps_div(eps_div)
+PgsBoxedLcpSolver::Option::Option(int maxIteration,
+    double relativeDeltaXTolerance,
+    double deltaXTolerance,
+    double epsilonForDivision,
+    bool randomizeConstraintOrder)
+  : mMaxIteration(maxIteration),
+    mRelativeDeltaXTolerance(relativeDeltaXTolerance),
+    mDeltaXTolerance(deltaXTolerance),
+    mEpsilonForDivision(epsilonForDivision),
+    mRandomizeConstraintOrder(randomizeConstraintOrder)
 {
   // Do nothing
 }
 
 //==============================================================================
-void PgsBoxedLcpSolver::solve(int n,
+void PgsBoxedLcpSolver::solve(
+    int n,
     double* A,
     double* x,
     double* b,
@@ -69,55 +72,53 @@ void PgsBoxedLcpSolver::solve(int n,
 {
   const int nskip = dPAD(n);
 
-  // if all the variables are unbounded then we can just factor, solve,
-  // and return
-  if (nub >= n) {
-    dReal *d = new dReal[n];
-    dSetZero (d, n);
+  // If all the variables are unbounded then we can just factor, solve, and
+  // return.R
+  if (nub >= n)
+  {
+    mDCache.resize(n);
+    std::fill(mDCache.begin(), mDCache.end(), 0);
 
-    dFactorLDLT (A, d, n, nskip);
-    dSolveLDLT (A, d, b, n, nskip);
-    memcpy (x, b, n*sizeof(dReal));
+    dFactorLDLT(A, mDCache.data(), n, nskip);
+    dSolveLDLT(A, mDCache.data(), b, n, nskip);
+    std::memcpy(x, b, n*sizeof(double));
 
     return;
   }
 
-  int i, j, iter, idx, n_new;
-  bool sentinel;
-  double old_x, new_x, hi_tmp, lo_tmp, dummy, ea;
-  double * A_ptr;
+  mOrderCache.clear();
+  mOrderCache.reserve(n);
 
-  //--- ORDERING & SCALING & INITIAL LOOP & Test
-  int* order = new int[n];
-
-  n_new = 0;
-  sentinel = true;
-  for (i = 0 ; i < n ; i++)
+  bool possibleToTerminate = true;
+  for (int i = 0; i < n; ++i)
   {
-    // ORDERING
-    if ( A[nskip*i + i] < mOption.eps_div )
+    // mOrderCacheing
+    if (A[nskip*i + i] < mOption.mEpsilonForDivision)
     {
       x[i] = 0.0;
       continue;
     }
-    order[n_new++] = i;
 
-    // INITIAL LOOP
-    A_ptr = A + nskip*i;
-    new_x = b[i];
-    old_x = x[i];
+    mOrderCache.push_back(i);
 
-    for (j = 0 ; j < i ; j++)
+    // Initial loop
+    const double* A_ptr = A + nskip * i;
+    const double old_x = x[i];
+
+    double new_x = b[i];
+
+    for (int j = 0; j < i; ++j)
       new_x -= A_ptr[j]*x[j];
-    for (j = i + 1 ; j < n ; j++)
+
+    for (int j = i + 1; j < n; ++j)
       new_x -= A_ptr[j]*x[j];
 
-    new_x = new_x/A[nskip*i + i];
+    new_x /= A[nskip*i + i];
 
-    if (findex[i] >= 0)	// friction index
+    if (findex[i] >= 0)
     {
-      hi_tmp = hi[i] * x[findex[i]];
-      lo_tmp = -hi_tmp;
+      const double hi_tmp = hi[i] * x[findex[i]];
+      const double lo_tmp = -hi_tmp;
 
       if (new_x > hi_tmp)
         x[i] = hi_tmp;
@@ -126,7 +127,7 @@ void PgsBoxedLcpSolver::solve(int n,
       else
         x[i] = new_x;
     }
-    else					// no friction index
+    else
     {
       if (new_x > hi[i])
         x[i] = hi[i];
@@ -136,107 +137,171 @@ void PgsBoxedLcpSolver::solve(int n,
         x[i] = new_x;
     }
 
-    // TEST
-    if (sentinel)
+    // Test
+    if (possibleToTerminate)
     {
-      ea = std::abs(x[i] - old_x);
-      if (ea > mOption.eps_res)
-        sentinel = false;
+      const double deltaX = std::abs(x[i] - old_x);
+      if (deltaX > mOption.mDeltaXTolerance)
+        possibleToTerminate = false;
     }
   }
-  if (sentinel)
+
+  if (possibleToTerminate)
   {
-    delete[] order;
     // return true;
     return;
   }
 
-  // SCALING
-  for (i = 0 ; i < n_new ; i++)
+  // Normalizing
+  for (const auto& index : mOrderCache)
   {
-    idx = order[i];
-
-    dummy = 1.0/A[nskip*idx + idx];  // diagonal element
-    b[idx] *= dummy;
-    for (j = 0 ; j < n ; j++)
-      A[nskip*idx + j] *= dummy;
+    const double dummy = 1.0 / A[nskip * index + index];
+    b[index] *= dummy;
+    for (int j = 0 ; j < n ; ++j)
+      A[nskip * index + j] *= dummy;
   }
 
-  //--- ITERATION LOOP
-  for (iter = 1 ; iter < mOption.mMaxIteration ; iter++)
+  for (int iter = 1; iter < mOption.mMaxIteration; ++iter)
   {
-    //--- RANDOMLY_REORDER_CONSTRAINTS
-#if LCP_PGS_RANDOMLY_REORDER_CONSTRAINTS
-    if ((iter & 7)==0)
+    if (mOption.mRandomizeConstraintOrder)
     {
-      int tmp, swapi;
-      for (i = 1 ; i < n_new ; i++)
+      if ((iter & 7) == 0)
       {
-        tmp = order[i];
-        swapi = dRandInt(i+1);
-        order[i] = order[swapi];
-        order[swapi] = tmp;
+        for (std::size_t i = 1; i < mOrderCache.size(); ++i)
+        {
+          const int tmp = mOrderCache[i];
+          const int swapi = dRandInt(i+1);
+          mOrderCache[i] = mOrderCache[swapi];
+          mOrderCache[swapi] = tmp;
+        }
       }
     }
-#endif
 
-    sentinel = true;
+    possibleToTerminate = true;
 
-    //-- ONE LOOP
-    for (i = 0 ; i < n_new ; i++)
+    // Single loop
+    for (const auto& index : mOrderCache)
     {
-      idx = order[i];
+      const double* A_ptr = A + nskip*index;
+      double new_x = b[index];
+      const double old_x = x[index];
 
-      A_ptr = A + nskip*idx;
-      new_x = b[idx];
-      old_x = x[idx];
-
-      for (j = 0 ; j < idx ; j++)
-        new_x -= A_ptr[j]*x[j];
-      for (j = idx + 1 ; j < n ; j++)
+      for (int j = 0; j < index; j++)
         new_x -= A_ptr[j]*x[j];
 
-      if (findex[idx] >= 0)	// friction index
+      for (int j = index + 1; j < n; j++)
+        new_x -= A_ptr[j]*x[j];
+
+      if (findex[index] >= 0)
       {
-        hi_tmp = hi[idx] * x[findex[idx]];
-        lo_tmp = -hi_tmp;
+        const double hi_tmp = hi[index] * x[findex[index]];
+        const double lo_tmp = -hi_tmp;
 
         if (new_x > hi_tmp)
-          x[idx] = hi_tmp;
+          x[index] = hi_tmp;
         else if (new_x < lo_tmp)
-          x[idx] = lo_tmp;
+          x[index] = lo_tmp;
         else
-          x[idx] = new_x;
+          x[index] = new_x;
       }
-      else					// no friction index
+      else
       {
-        if (new_x > hi[idx])
-          x[idx] = hi[idx];
-        else if (new_x < lo[idx])
-          x[idx] = lo[idx];
+        if (new_x > hi[index])
+          x[index] = hi[index];
+        else if (new_x < lo[index])
+          x[index] = lo[index];
         else
-          x[idx] = new_x;
+          x[index] = new_x;
       }
 
-      if (sentinel && std::abs(x[idx]) > mOption.eps_div)
+      if (possibleToTerminate && std::abs(x[index]) > mOption.mEpsilonForDivision)
       {
-        ea = std::abs((x[idx] - old_x)/x[idx]);
-        if (ea > mOption.eps_ea)
-          sentinel = false;
+        const double relativeDeltaX = std::abs((x[index] - old_x)/x[index]);
+        if (relativeDeltaX > mOption.mRelativeDeltaXTolerance)
+          possibleToTerminate = false;
       }
     }
 
-    if (sentinel)
+    if (possibleToTerminate)
       break;
   }
-  delete[] order;
 
   //return sentinel; // TODO(JS): Consider providing the result passing sentinel
   // in it.
 }
 
 //==============================================================================
-bool PgsBoxedLcpSolver::canSolve(int n, double* A)
+void PgsBoxedLcpSolver::solve(
+    Eigen::MatrixXd& A,
+    Eigen::VectorXd& x,
+    Eigen::VectorXd& b,
+    int nub,
+    const Eigen::VectorXd& lo,
+    const Eigen::VectorXd& hi)
+{
+  const auto n = b.size();
+
+  // If all the variables are unbounded then we can just factor, solve, and
+  // return.
+  if (nub >= n)
+  {
+    x = A.colPivHouseholderQr().solve(b);
+
+    return;
+  }
+
+  mOrderCache.clear();
+  mOrderCache.reserve(n);
+
+  Eigen::VectorXd oldX = x;
+
+  bool possibleToTerminate = true;
+
+  mZCache = -b;
+  mZCache.noalias() -= A.template triangularView<Eigen::StrictlyUpper>() * x;
+  x.noalias() = A.template triangularView<Eigen::Lower>().solve(mZCache);
+
+  // Project the solution within the lower and higher limits
+  x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
+
+  if (possibleToTerminate)
+  {
+    // return true;
+    return;
+  }
+
+  // Normalizing
+  b.array() /= A.diagonal().array();
+  A.array().colwise() /= A.diagonal().array();
+
+  for (int iter = 1; iter < mOption.mMaxIteration; ++iter)
+  {
+    possibleToTerminate = true;
+
+    mZCache = -b;
+    mZCache.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
+    x.noalias() = A.triangularView<Eigen::UnitLower>().solve(mZCache);
+
+    // Project the solution within the lower and higher limits
+    x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
+
+//      if (possibleToTerminate && std::abs(x[index]) > mOption.mEpsilonForDivision)
+//      {
+//        const double relativeDeltaX = std::abs((x[index] - old_x)/x[index]);
+//        if (relativeDeltaX > mOption.mRelativeDeltaXTolerance)
+//          possibleToTerminate = false;
+//      }
+//    }
+
+//    if (possibleToTerminate)
+//      break;
+    if (((x - oldX).cwiseAbs().array() > mOption.mDeltaXTolerance).any())
+      possibleToTerminate = false;
+  }
+}
+
+//==============================================================================
+bool PgsBoxedLcpSolver::canSolve(int n, const double* A)
 {
   const int nskip = dPAD(n);
 
@@ -266,6 +331,66 @@ void PgsBoxedLcpSolver::setOption(const PgsBoxedLcpSolver::Option& option)
 const PgsBoxedLcpSolver::Option& PgsBoxedLcpSolver::getOption() const
 {
   return mOption;
+}
+
+//==============================================================================
+void PgsBoxedLcpSolver::singleIterationForNormalizedA(
+    int nskip,
+    int* mOrderCache,
+    int n,
+    int n_new,
+    const double* A,
+    double* x,
+    double* b,
+    double* lo,
+    double* hi,
+    int* findex,
+    bool& sentinel)
+{
+  // Single loop
+  for (int i = 0; i < n_new; ++i)
+  {
+    const int index = mOrderCache[i];
+
+    const double* A_ptr = A + nskip*index;
+    double new_x = b[index];
+    const double old_x = x[index];
+
+    for (int j = 0; j < index; j++)
+      new_x -= A_ptr[j]*x[j];
+
+    for (int j = index + 1; j < n; j++)
+      new_x -= A_ptr[j]*x[j];
+
+    if (findex[index] >= 0)
+    {
+      const double hi_tmp = hi[index] * x[findex[index]];
+      const double lo_tmp = -hi_tmp;
+
+      if (new_x > hi_tmp)
+        x[index] = hi_tmp;
+      else if (new_x < lo_tmp)
+        x[index] = lo_tmp;
+      else
+        x[index] = new_x;
+    }
+    else
+    {
+      if (new_x > hi[index])
+        x[index] = hi[index];
+      else if (new_x < lo[index])
+        x[index] = lo[index];
+      else
+        x[index] = new_x;
+    }
+
+    if (sentinel && std::abs(x[index]) > mOption.mEpsilonForDivision)
+    {
+      const double ea = std::abs((x[index] - old_x)/x[index]);
+      if (ea > mOption.mRelativeDeltaXTolerance)
+        sentinel = false;
+    }
+  }
 }
 
 }  // namespace constraint

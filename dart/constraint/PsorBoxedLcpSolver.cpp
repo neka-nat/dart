@@ -228,7 +228,24 @@ void PsorBoxedLcpSolver::solve(int n,
 }
 
 //==============================================================================
-bool PsorBoxedLcpSolver::canSolve(int n, double* A)
+void PsorBoxedLcpSolver::solve(
+    Eigen::MatrixXd& A,
+    Eigen::VectorXd& x,
+    Eigen::VectorXd& b,
+    int nub,
+    const Eigen::VectorXd& lo,
+    const Eigen::VectorXd& hi)
+{
+  A;
+  x;
+  b;
+  nub;
+  lo;
+  hi;
+}
+
+//==============================================================================
+bool PsorBoxedLcpSolver::canSolve(int n, const double* A)
 {
   const int nskip = dPAD(n);
 
