@@ -23,3 +23,8 @@ install(
   DESTINATION include/dart/constraint
   COMPONENT headers
 )
+
+dart_format_add(
+  PgsBoxedLcpSolver.hpp
+  PgsBoxedLcpSolver.cpp
+)

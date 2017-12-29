@@ -228,10 +228,9 @@ void PsorBoxedLcpSolver::solve(int n,
 }
 
 //==============================================================================
-void PsorBoxedLcpSolver::solve(
-    Eigen::MatrixXd& A,
+void PsorBoxedLcpSolver::solve(const Eigen::MatrixXd& A,
     Eigen::VectorXd& x,
-    Eigen::VectorXd& b,
+    const Eigen::VectorXd& b,
     int nub,
     const Eigen::VectorXd& lo,
     const Eigen::VectorXd& hi)

@@ -46,15 +46,15 @@ public:
   struct Option
   {
     int mMaxIteration;
+    double mDeltaXThreshold;
     double mRelativeDeltaXTolerance;
-    double mDeltaXTolerance;
     double mEpsilonForDivision;
     bool mRandomizeConstraintOrder;
 
     Option(
         int maxIteration = 30,
-        double relativeDeltaXTolerance = 1e-3,
         double deltaXTolerance = 1e-6,
+        double relativeDeltaXTolerance = 1e-3,
         double epsilonForDivision = 1e-9,
         bool randomizeConstraintOrder = false);
   };
@@ -71,9 +71,9 @@ public:
       int* findex) override;
 
   void solve(
-      Eigen::MatrixXd& A,
+      const Eigen::MatrixXd& A,
       Eigen::VectorXd& x,
-      Eigen::VectorXd& b,
+      const Eigen::VectorXd& b,
       int nub,
       const Eigen::VectorXd& lo,
       const Eigen::VectorXd& hi) override;
@@ -88,7 +88,11 @@ public:
   const Option& getOption() const;
 
 protected:
-  void singleIterationForNormalizedA(int nskip, int* order, int n, int n_new,
+  void singleIterationForNormalizedA(
+      int nskip,
+      int* order,
+      int n,
+      int n_new,
       const double* normalizedA,
       double* x,
       double* b,
@@ -97,16 +101,49 @@ protected:
       int* findex,
       bool& sentinel);
 
+  void sweepForward(
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+  {
+    mCacheZ = -b;
+    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
+    x.noalias() = A.triangularView<Eigen::Lower>().solve(mCacheZ);
+  }
+
+  void sweepForwardNormalized(
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+  {
+    mCacheZ = -b;
+    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
+    x.noalias() = A.triangularView<Eigen::UnitLower>().solve(mCacheZ);
+  }
+
+  void sweepBackward(
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+  {
+    mCacheZ = -b;
+    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyLower>() * x;
+    x.noalias() = A.triangularView<Eigen::Upper>().solve(mCacheZ);
+  }
+
+  void sweepBackwardNormalized(
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+  {
+    mCacheZ = -b;
+    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyLower>() * x;
+    x.noalias() = A.triangularView<Eigen::UnitUpper>().solve(mCacheZ);
+  }
+
   Option mOption;
 
-  mutable std::vector<int> mOrderCache;
-  mutable std::vector<double> mDCache;
-  mutable Eigen::MatrixXd mNormalizedACache;
-  mutable Eigen::VectorXd mZCache;
+  mutable std::vector<int> mCacheOrder;
+  mutable std::vector<double> mCacheD;
+  mutable Eigen::VectorXd mCacheNormalizedA;
+  mutable Eigen::MatrixXd mCacheNormalizedB;
+  mutable Eigen::VectorXd mCacheZ;
+  mutable Eigen::VectorXd mCacheOldX;
 };
 
 } // namespace constraint
 } // namespace dart
 
 #endif // DART_CONSTRAINT_PGSBOXEDLCPSOLVER_HPP_
-

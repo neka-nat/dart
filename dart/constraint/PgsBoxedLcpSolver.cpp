@@ -45,14 +45,15 @@ namespace dart {
 namespace constraint {
 
 //==============================================================================
-PgsBoxedLcpSolver::Option::Option(int maxIteration,
-    double relativeDeltaXTolerance,
+PgsBoxedLcpSolver::Option::Option(
+    int maxIteration,
     double deltaXTolerance,
+    double relativeDeltaXTolerance,
     double epsilonForDivision,
     bool randomizeConstraintOrder)
   : mMaxIteration(maxIteration),
+    mDeltaXThreshold(deltaXTolerance),
     mRelativeDeltaXTolerance(relativeDeltaXTolerance),
-    mDeltaXTolerance(deltaXTolerance),
     mEpsilonForDivision(epsilonForDivision),
     mRandomizeConstraintOrder(randomizeConstraintOrder)
 {
@@ -76,30 +77,30 @@ void PgsBoxedLcpSolver::solve(
   // return.R
   if (nub >= n)
   {
-    mDCache.resize(n);
-    std::fill(mDCache.begin(), mDCache.end(), 0);
+    mCacheD.resize(n);
+    std::fill(mCacheD.begin(), mCacheD.end(), 0);
 
-    dFactorLDLT(A, mDCache.data(), n, nskip);
-    dSolveLDLT(A, mDCache.data(), b, n, nskip);
-    std::memcpy(x, b, n*sizeof(double));
+    dFactorLDLT(A, mCacheD.data(), n, nskip);
+    dSolveLDLT(A, mCacheD.data(), b, n, nskip);
+    std::memcpy(x, b, n * sizeof(double));
 
     return;
   }
 
-  mOrderCache.clear();
-  mOrderCache.reserve(n);
+  mCacheOrder.clear();
+  mCacheOrder.reserve(n);
 
   bool possibleToTerminate = true;
   for (int i = 0; i < n; ++i)
   {
     // mOrderCacheing
-    if (A[nskip*i + i] < mOption.mEpsilonForDivision)
+    if (A[nskip * i + i] < mOption.mEpsilonForDivision)
     {
       x[i] = 0.0;
       continue;
     }
 
-    mOrderCache.push_back(i);
+    mCacheOrder.push_back(i);
 
     // Initial loop
     const double* A_ptr = A + nskip * i;
@@ -108,12 +109,12 @@ void PgsBoxedLcpSolver::solve(
     double new_x = b[i];
 
     for (int j = 0; j < i; ++j)
-      new_x -= A_ptr[j]*x[j];
+      new_x -= A_ptr[j] * x[j];
 
     for (int j = i + 1; j < n; ++j)
-      new_x -= A_ptr[j]*x[j];
+      new_x -= A_ptr[j] * x[j];
 
-    new_x /= A[nskip*i + i];
+    new_x /= A[nskip * i + i];
 
     if (findex[i] >= 0)
     {
@@ -141,7 +142,7 @@ void PgsBoxedLcpSolver::solve(
     if (possibleToTerminate)
     {
       const double deltaX = std::abs(x[i] - old_x);
-      if (deltaX > mOption.mDeltaXTolerance)
+      if (deltaX > mOption.mDeltaXThreshold)
         possibleToTerminate = false;
     }
   }
@@ -153,11 +154,11 @@ void PgsBoxedLcpSolver::solve(
   }
 
   // Normalizing
-  for (const auto& index : mOrderCache)
+  for (const auto& index : mCacheOrder)
   {
     const double dummy = 1.0 / A[nskip * index + index];
     b[index] *= dummy;
-    for (int j = 0 ; j < n ; ++j)
+    for (int j = 0; j < n; ++j)
       A[nskip * index + j] *= dummy;
   }
 
@@ -167,12 +168,12 @@ void PgsBoxedLcpSolver::solve(
     {
       if ((iter & 7) == 0)
       {
-        for (std::size_t i = 1; i < mOrderCache.size(); ++i)
+        for (std::size_t i = 1; i < mCacheOrder.size(); ++i)
         {
-          const int tmp = mOrderCache[i];
-          const int swapi = dRandInt(i+1);
-          mOrderCache[i] = mOrderCache[swapi];
-          mOrderCache[swapi] = tmp;
+          const int tmp = mCacheOrder[i];
+          const int swapi = dRandInt(i + 1);
+          mCacheOrder[i] = mCacheOrder[swapi];
+          mCacheOrder[swapi] = tmp;
         }
       }
     }
@@ -180,17 +181,17 @@ void PgsBoxedLcpSolver::solve(
     possibleToTerminate = true;
 
     // Single loop
-    for (const auto& index : mOrderCache)
+    for (const auto& index : mCacheOrder)
     {
-      const double* A_ptr = A + nskip*index;
+      const double* A_ptr = A + nskip * index;
       double new_x = b[index];
       const double old_x = x[index];
 
       for (int j = 0; j < index; j++)
-        new_x -= A_ptr[j]*x[j];
+        new_x -= A_ptr[j] * x[j];
 
       for (int j = index + 1; j < n; j++)
-        new_x -= A_ptr[j]*x[j];
+        new_x -= A_ptr[j] * x[j];
 
       if (findex[index] >= 0)
       {
@@ -214,9 +215,10 @@ void PgsBoxedLcpSolver::solve(
           x[index] = new_x;
       }
 
-      if (possibleToTerminate && std::abs(x[index]) > mOption.mEpsilonForDivision)
+      if (possibleToTerminate &&
+          std::abs(x[index]) > mOption.mEpsilonForDivision)
       {
-        const double relativeDeltaX = std::abs((x[index] - old_x)/x[index]);
+        const double relativeDeltaX = std::abs((x[index] - old_x) / x[index]);
         if (relativeDeltaX > mOption.mRelativeDeltaXTolerance)
           possibleToTerminate = false;
       }
@@ -226,77 +228,79 @@ void PgsBoxedLcpSolver::solve(
       break;
   }
 
-  //return sentinel; // TODO(JS): Consider providing the result passing sentinel
+  // return sentinel; // TODO(JS): Consider providing the result passing
+  // sentinel
   // in it.
 }
 
 //==============================================================================
 void PgsBoxedLcpSolver::solve(
-    Eigen::MatrixXd& A,
+    const Eigen::MatrixXd& A,
     Eigen::VectorXd& x,
-    Eigen::VectorXd& b,
+    const Eigen::VectorXd& b,
     int nub,
     const Eigen::VectorXd& lo,
     const Eigen::VectorXd& hi)
 {
   const auto n = b.size();
 
-  // If all the variables are unbounded then we can just factor, solve, and
-  // return.
+  // If all the variables are unbounded then we can solve it as a linear system
+  // using the Cholesky decomposition method.
   if (nub >= n)
   {
-    x = A.colPivHouseholderQr().solve(b);
-
+    x = A.ldlt().solve(b);
     return;
   }
 
-  mOrderCache.clear();
-  mOrderCache.reserve(n);
-
-  Eigen::VectorXd oldX = x;
-
-  bool possibleToTerminate = true;
-
-  mZCache = -b;
-  mZCache.noalias() -= A.template triangularView<Eigen::StrictlyUpper>() * x;
-  x.noalias() = A.template triangularView<Eigen::Lower>().solve(mZCache);
-
-  // Project the solution within the lower and higher limits
-  x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
-
-  if (possibleToTerminate)
+  if (n < mOption.mMaxIteration)
   {
-    // return true;
-    return;
+    // Normalization. Divide i-th row of A and i-th element of b by i-th
+    // diagonal of A so that the diagonal elements of A become ones. The
+    // normalized linear systems can be solved more efficiently than the regular
+    // linear system.
+    //
+    // The normalized linear system saves n number of division per iteration. So
+    // this would be only worth when n is less than the maximum iteration
+    // because the cost of normalizing is n x n.
+
+    mCacheNormalizedB = b.array() / A.diagonal().array();
+    mCacheNormalizedA = A.array().colwise() / A.diagonal().array();
+
+    for (int i = 0; i < mOption.mMaxIteration; ++i)
+    {
+      mCacheOldX = x;
+
+      sweepForwardNormalized(mCacheNormalizedA, x, mCacheNormalizedB);
+
+      // Project the solution within the lower and higher limits
+      x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
+
+      // Early termination
+      if (((x - mCacheOldX).cwiseAbs().array() <= mOption.mDeltaXThreshold)
+              .any())
+      {
+        return;
+      }
+    }
   }
-
-  // Normalizing
-  b.array() /= A.diagonal().array();
-  A.array().colwise() /= A.diagonal().array();
-
-  for (int iter = 1; iter < mOption.mMaxIteration; ++iter)
+  else
   {
-    possibleToTerminate = true;
+    for (int i = 0; i < mOption.mMaxIteration; ++i)
+    {
+      mCacheOldX = x;
 
-    mZCache = -b;
-    mZCache.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
-    x.noalias() = A.triangularView<Eigen::UnitLower>().solve(mZCache);
+      sweepForward(A, x, b);
 
-    // Project the solution within the lower and higher limits
-    x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
+      // Project the solution within the lower and higher limits
+      x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
 
-//      if (possibleToTerminate && std::abs(x[index]) > mOption.mEpsilonForDivision)
-//      {
-//        const double relativeDeltaX = std::abs((x[index] - old_x)/x[index]);
-//        if (relativeDeltaX > mOption.mRelativeDeltaXTolerance)
-//          possibleToTerminate = false;
-//      }
-//    }
-
-//    if (possibleToTerminate)
-//      break;
-    if (((x - oldX).cwiseAbs().array() > mOption.mDeltaXTolerance).any())
-      possibleToTerminate = false;
+      // Early termination
+      if (((x - mCacheOldX).cwiseAbs().array() <= mOption.mDeltaXThreshold)
+              .any())
+      {
+        return;
+      }
+    }
   }
 }
 
@@ -352,15 +356,15 @@ void PgsBoxedLcpSolver::singleIterationForNormalizedA(
   {
     const int index = mOrderCache[i];
 
-    const double* A_ptr = A + nskip*index;
+    const double* A_ptr = A + nskip * index;
     double new_x = b[index];
     const double old_x = x[index];
 
     for (int j = 0; j < index; j++)
-      new_x -= A_ptr[j]*x[j];
+      new_x -= A_ptr[j] * x[j];
 
     for (int j = index + 1; j < n; j++)
-      new_x -= A_ptr[j]*x[j];
+      new_x -= A_ptr[j] * x[j];
 
     if (findex[index] >= 0)
     {
@@ -386,12 +390,12 @@ void PgsBoxedLcpSolver::singleIterationForNormalizedA(
 
     if (sentinel && std::abs(x[index]) > mOption.mEpsilonForDivision)
     {
-      const double ea = std::abs((x[index] - old_x)/x[index]);
+      const double ea = std::abs((x[index] - old_x) / x[index]);
       if (ea > mOption.mRelativeDeltaXTolerance)
         sentinel = false;
     }
   }
 }
 
-}  // namespace constraint
-}  // namespace dart
+} // namespace constraint
+} // namespace dart

@@ -237,9 +237,9 @@ void JacobiBoxedLcpSolver::solve(
 }
 
 //==============================================================================
-void JacobiBoxedLcpSolver::solve(Eigen::MatrixXd& A,
+void JacobiBoxedLcpSolver::solve(const Eigen::MatrixXd& A,
     Eigen::VectorXd& x,
-    Eigen::VectorXd& b,
+    const Eigen::VectorXd& b,
     int nub,
     const Eigen::VectorXd& lo,
     const Eigen::VectorXd& hi)

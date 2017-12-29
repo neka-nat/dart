@@ -72,9 +72,9 @@ public:
   // this to Eigen friendly version once own Dantzig LCP solver is available.
 
   virtual void solve(
-      Eigen::MatrixXd& A,
+      const Eigen::MatrixXd& A,
       Eigen::VectorXd& x,
-      Eigen::VectorXd& b,
+      const Eigen::VectorXd& b,
       int nub,
       const Eigen::VectorXd& lo,
       const Eigen::VectorXd& hi) = 0;

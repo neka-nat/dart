@@ -52,9 +52,9 @@ void DantzigBoxedLcpSolver::solve(
 }
 
 //==============================================================================
-void DantzigBoxedLcpSolver::solve(Eigen::MatrixXd& /*A*/,
+void DantzigBoxedLcpSolver::solve(const Eigen::MatrixXd& /*A*/,
     Eigen::VectorXd& /*x*/,
-    Eigen::VectorXd& /*b*/,
+    const Eigen::VectorXd& /*b*/,
     int /*nub*/,
     const Eigen::VectorXd& /*lo*/,
     const Eigen::VectorXd& /*hi*/)
