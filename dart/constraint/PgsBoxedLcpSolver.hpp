@@ -76,6 +76,15 @@ public:
       const Eigen::VectorXd& b,
       int nub,
       const Eigen::VectorXd& lo,
+      const Eigen::VectorXd& hi,
+      const Eigen::VectorXi& frictionIndex);
+
+  void solve(
+      const Eigen::MatrixXd& A,
+      Eigen::VectorXd& x,
+      const Eigen::VectorXd& b,
+      int nub,
+      const Eigen::VectorXd& lo,
       const Eigen::VectorXd& hi) override;
 
   // Documentation inherited.
@@ -137,8 +146,8 @@ protected:
 
   mutable std::vector<int> mCacheOrder;
   mutable std::vector<double> mCacheD;
-  mutable Eigen::VectorXd mCacheNormalizedA;
-  mutable Eigen::MatrixXd mCacheNormalizedB;
+  mutable Eigen::VectorXd mCachedNormalizedA;
+  mutable Eigen::MatrixXd mCachedNormalizedB;
   mutable Eigen::VectorXd mCacheZ;
   mutable Eigen::VectorXd mCacheOldX;
 };

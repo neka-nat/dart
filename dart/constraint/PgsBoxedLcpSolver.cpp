@@ -240,6 +240,78 @@ void PgsBoxedLcpSolver::solve(
     const Eigen::VectorXd& b,
     int nub,
     const Eigen::VectorXd& lo,
+    const Eigen::VectorXd& hi,
+    const Eigen::VectorXi& frictionIndex)
+{
+  const auto n = b.size();
+
+  // If all the variables are unbounded then we can solve it as a linear system
+  // using the Cholesky decomposition method.
+  if (nub >= n)
+  {
+    x = A.ldlt().solve(b);
+    return;
+  }
+
+  if (n < mOption.mMaxIteration)
+  {
+    // Normalization. Divide i-th row of A and i-th element of b by i-th
+    // diagonal of A so that the diagonal elements of A become ones. The
+    // normalized linear systems can be solved more efficiently than the regular
+    // linear system.
+    //
+    // The normalized linear system saves n number of division per iteration. So
+    // this would be only worth when n is less than the maximum iteration
+    // because the cost of normalizing is n x n.
+
+    mCachedNormalizedA = A.array().colwise() / A.diagonal().array();
+    mCachedNormalizedB = b.array() / A.diagonal().array();
+
+    for (int i = 0; i < mOption.mMaxIteration; ++i)
+    {
+      mCacheOldX = x;
+
+      sweepForwardNormalized(mCachedNormalizedA, x, mCachedNormalizedB);
+
+      // Project the solution within the lower and higher limits
+      x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
+
+      // Early termination
+      if (((x - mCacheOldX).cwiseAbs().array() <= mOption.mDeltaXThreshold)
+              .any())
+      {
+        return;
+      }
+    }
+  }
+  else
+  {
+    for (int i = 0; i < mOption.mMaxIteration; ++i)
+    {
+      mCacheOldX = x;
+
+      sweepForward(A, x, b);
+
+      // Project the solution within the lower and higher limits
+      x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
+
+      // Early termination
+      if (((x - mCacheOldX).cwiseAbs().array() <= mOption.mDeltaXThreshold)
+              .any())
+      {
+        return;
+      }
+    }
+  }
+}
+
+//==============================================================================
+void PgsBoxedLcpSolver::solve(
+    const Eigen::MatrixXd& A,
+    Eigen::VectorXd& x,
+    const Eigen::VectorXd& b,
+    int nub,
+    const Eigen::VectorXd& lo,
     const Eigen::VectorXd& hi)
 {
   const auto n = b.size();
@@ -263,14 +335,14 @@ void PgsBoxedLcpSolver::solve(
     // this would be only worth when n is less than the maximum iteration
     // because the cost of normalizing is n x n.
 
-    mCacheNormalizedB = b.array() / A.diagonal().array();
-    mCacheNormalizedA = A.array().colwise() / A.diagonal().array();
+    mCachedNormalizedA = A.array().colwise() / A.diagonal().array();
+    mCachedNormalizedB = b.array() / A.diagonal().array();
 
     for (int i = 0; i < mOption.mMaxIteration; ++i)
     {
       mCacheOldX = x;
 
-      sweepForwardNormalized(mCacheNormalizedA, x, mCacheNormalizedB);
+      sweepForwardNormalized(mCachedNormalizedA, x, mCachedNormalizedB);
 
       // Project the solution within the lower and higher limits
       x.noalias() = x.cwiseMax(lo).cwiseMin(hi);
