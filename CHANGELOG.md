@@ -4,6 +4,7 @@
 
 * Kinematics/Dynamics
 
+  * Added lazy evaluation for shape's volume and bounding-box computation: [#959](https://github.com/dartsim/dart/pull/959)
   * Added IkFast support as analytic IK solver: [#887](https://github.com/dartsim/dart/pull/887)
   * Fixed NaN values caused by zero-length normals in ContactConstraint: [#881](https://github.com/dartsim/dart/pull/881)
 
@@ -17,7 +18,10 @@
 
 * Misc
 
-  * Suppressed warnings: [#937](https://github.com/dartsim/dart/pull/937)
+  * Added World::create(): [#962](https://github.com/dartsim/dart/pull/962)
+  * Suppressed -Winjected-class-name warnings from Clang 5.0.0: [#964](https://github.com/dartsim/dart/pull/964)
+  * Suppressed -Wdangling-else warnings from GCC 7.2.0: [#937](https://github.com/dartsim/dart/pull/937)
+  * Fixed various build issues with Visual Studio: [#956](https://github.com/dartsim/dart/pull/956)
 
 ### [DART 6.3.0 (2017-10-04)](https://github.com/dartsim/dart/milestone/36?closed=1)
 
@@ -640,6 +644,11 @@
     * [Pull request #306](https://github.com/dartsim/dart/pull/306)
 
 ## DART 4
+
+### Version 4.3.7 (2018-01-05)
+
+1. Updated DART 4.3 to be compatible with urdf 1.0/tinyxml2 6/flann 1.9.1
+    * [Pull request #955](https://github.com/dartsim/dart/pull/955)
 
 ### Version 4.3.6 (2016-04-16)
 

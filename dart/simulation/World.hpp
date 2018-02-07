@@ -92,6 +92,9 @@ public:
   // Constructor and Destructor
   //--------------------------------------------------------------------------
 
+  /// Creates a World
+  static std::shared_ptr<World> create(const std::string& name = "world");
+
   /// Constructor
   World(const std::string& _name = "world");
 
