@@ -74,15 +74,6 @@ public:
   virtual bool canSolve(int n, const double* A) = 0;
 };
 
-class LcpErrorMetric
-{
-public:
-  bool canTermninate() const
-  {
-    return true;
-  }
-};
-
 } // namespace constraint
 } // namespace dart
 
