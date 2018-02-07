@@ -111,36 +111,16 @@ protected:
       bool& sentinel);
 
   void sweepForward(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
-  {
-    mCacheZ = -b;
-    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
-    x.noalias() = A.triangularView<Eigen::Lower>().solve(mCacheZ);
-  }
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
 
   void sweepForwardNormalized(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
-  {
-    mCacheZ = -b;
-    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
-    x.noalias() = A.triangularView<Eigen::UnitLower>().solve(mCacheZ);
-  }
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
 
   void sweepBackward(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
-  {
-    mCacheZ = -b;
-    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyLower>() * x;
-    x.noalias() = A.triangularView<Eigen::Upper>().solve(mCacheZ);
-  }
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
 
   void sweepBackwardNormalized(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
-  {
-    mCacheZ = -b;
-    mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyLower>() * x;
-    x.noalias() = A.triangularView<Eigen::UnitUpper>().solve(mCacheZ);
-  }
+      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
 
   Option mOption;
 

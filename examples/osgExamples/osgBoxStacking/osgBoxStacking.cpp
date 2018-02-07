@@ -46,7 +46,7 @@ dynamics::SkeletonPtr createBox(const Eigen::Vector3d& position)
 
   // Give the floor a body
   dynamics::BodyNodePtr boxBody =
-      boxSkel->createJointAndBodyNodePair<dynamics::WeldJoint>(nullptr).second;
+      boxSkel->createJointAndBodyNodePair<dynamics::FreeJoint>(nullptr).second;
 
   // Give the body a shape
   double boxWidth = 1.0;
@@ -238,7 +238,7 @@ public:
   void render() override
   {
     ImGui::SetNextWindowPos(ImVec2(10,20));
-    if (!ImGui::Begin("Newton's Cradle", nullptr, ImVec2(240, 320), 0.5f,
+    if (!ImGui::Begin("Box Stacking", nullptr, ImVec2(240, 320), 0.5f,
                       ImGuiWindowFlags_NoResize |
                       ImGuiWindowFlags_MenuBar |
                       ImGuiWindowFlags_HorizontalScrollbar))

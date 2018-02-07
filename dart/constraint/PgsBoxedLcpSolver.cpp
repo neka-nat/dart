@@ -241,7 +241,7 @@ void PgsBoxedLcpSolver::solve(
     int nub,
     const Eigen::VectorXd& lo,
     const Eigen::VectorXd& hi,
-    const Eigen::VectorXi& frictionIndex)
+    const Eigen::VectorXi& /*frictionIndex*/)
 {
   const auto n = b.size();
 
@@ -467,6 +467,42 @@ void PgsBoxedLcpSolver::singleIterationForNormalizedA(
         sentinel = false;
     }
   }
+}
+
+//==============================================================================
+void PgsBoxedLcpSolver::sweepForward(
+    const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+{
+  mCacheZ = -b;
+  mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
+  x.noalias() = A.triangularView<Eigen::Lower>().solve(mCacheZ);
+}
+
+//==============================================================================
+void PgsBoxedLcpSolver::sweepForwardNormalized(
+    const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+{
+  mCacheZ = -b;
+  mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyUpper>() * x;
+  x.noalias() = A.triangularView<Eigen::UnitLower>().solve(mCacheZ);
+}
+
+//==============================================================================
+void PgsBoxedLcpSolver::sweepBackward(
+    const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+{
+  mCacheZ = -b;
+  mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyLower>() * x;
+  x.noalias() = A.triangularView<Eigen::Upper>().solve(mCacheZ);
+}
+
+//==============================================================================
+void PgsBoxedLcpSolver::sweepBackwardNormalized(
+    const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b)
+{
+  mCacheZ = -b;
+  mCacheZ.noalias() -= A.triangularView<Eigen::StrictlyLower>() * x;
+  x.noalias() = A.triangularView<Eigen::UnitUpper>().solve(mCacheZ);
 }
 
 } // namespace constraint
