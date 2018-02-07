@@ -309,6 +309,10 @@ if(TARGET dart)
       target_compile_options(example_wamIk PRIVATE -w)
 
       dart_add_example(examples/osgExamples/osgWamIkFast dart dart-utils-urdf dart-gui-osg example_wamIk)
+
+      dart_format_add(
+        examples/osgExamples/osgBoxStacking/osgBoxStacking.cpp
+      )
     endif()
 
     # Add an "examples" target to build examples.
