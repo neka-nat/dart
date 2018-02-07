@@ -52,17 +52,6 @@ void DantzigBoxedLcpSolver::solve(
 }
 
 //==============================================================================
-void DantzigBoxedLcpSolver::solve(const Eigen::MatrixXd& /*A*/,
-    Eigen::VectorXd& /*x*/,
-    const Eigen::VectorXd& /*b*/,
-    int /*nub*/,
-    const Eigen::VectorXd& /*lo*/,
-    const Eigen::VectorXd& /*hi*/)
-{
-
-}
-
-//==============================================================================
 bool DantzigBoxedLcpSolver::canSolve(int /*n*/, const double* /*A*/)
 {
   // TODO(JS): Not implemented.

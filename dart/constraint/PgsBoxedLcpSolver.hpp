@@ -70,23 +70,6 @@ public:
       double* hi,
       int* findex) override;
 
-  void solve(
-      const Eigen::MatrixXd& A,
-      Eigen::VectorXd& x,
-      const Eigen::VectorXd& b,
-      int nub,
-      const Eigen::VectorXd& lo,
-      const Eigen::VectorXd& hi,
-      const Eigen::VectorXi& frictionIndex);
-
-  void solve(
-      const Eigen::MatrixXd& A,
-      Eigen::VectorXd& x,
-      const Eigen::VectorXd& b,
-      int nub,
-      const Eigen::VectorXd& lo,
-      const Eigen::VectorXd& hi) override;
-
   // Documentation inherited.
   bool canSolve(int n, const double* A) override;
 
@@ -97,31 +80,6 @@ public:
   const Option& getOption() const;
 
 protected:
-  void singleIterationForNormalizedA(
-      int nskip,
-      int* order,
-      int n,
-      int n_new,
-      const double* normalizedA,
-      double* x,
-      double* b,
-      double* lo,
-      double* hi,
-      int* findex,
-      bool& sentinel);
-
-  void sweepForward(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
-
-  void sweepForwardNormalized(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
-
-  void sweepBackward(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
-
-  void sweepBackwardNormalized(
-      const Eigen::MatrixXd& A, Eigen::VectorXd& x, const Eigen::VectorXd& b);
-
   Option mOption;
 
   mutable std::vector<int> mCacheOrder;

@@ -71,14 +71,6 @@ public:
   // Note: The function signature is ODE specific for now. Consider changing
   // this to Eigen friendly version once own Dantzig LCP solver is available.
 
-  virtual void solve(
-      const Eigen::MatrixXd& A,
-      Eigen::VectorXd& x,
-      const Eigen::VectorXd& b,
-      int nub,
-      const Eigen::VectorXd& lo,
-      const Eigen::VectorXd& hi) = 0;
-
   virtual bool canSolve(int n, const double* A) = 0;
 };
 
