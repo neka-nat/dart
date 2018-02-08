@@ -38,7 +38,7 @@
 namespace dart {
 namespace constraint {
 
-/*! BlcpSolver
+/*! BoxedLcpSolver
  *
  *  The boxed linear complementarity problem (BLCP) is defined by
  *

@@ -30,8 +30,8 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DART_CONSTRAINT_SIMULTANEOUSIMPULSECONSTRAINTSOLVER_HPP_
-#define DART_CONSTRAINT_SIMULTANEOUSIMPULSECONSTRAINTSOLVER_HPP_
+#ifndef DART_CONSTRAINT_SEQUENTIALIMPULSECONSTRAINTSOLVER_HPP_
+#define DART_CONSTRAINT_SEQUENTIALIMPULSECONSTRAINTSOLVER_HPP_
 
 #include "dart/constraint/ConstraintSolver.hpp"
 #include "dart/constraint/SmartPointer.hpp"
@@ -39,13 +39,12 @@
 namespace dart {
 namespace constraint {
 
-class SimultaneousImpulseConstraintSolver : public ConstraintSolver
+class SequentialImpulseConstraintSolver : public ConstraintSolver
 {
 public:
   /// Constructor
-  SimultaneousImpulseConstraintSolver(
-      double timeStep,
-      BoxedLcpSolverPtr boxedLcpSolver = nullptr);
+  SequentialImpulseConstraintSolver(
+      double timeStep, BoxedLcpSolverPtr boxedLcpSolver = nullptr);
 
   /// Sets boxed LCP (BLCP) solver
   void setBoxedLcpSolver(BoxedLcpSolverPtr lcpSolver);
@@ -65,16 +64,23 @@ private:
   bool isSymmetric(std::size_t n, double* A);
 
   /// Return true if the diagonla block of matrix is symmetric
-  bool isSymmetric(std::size_t n, double* A, std::size_t begin, std::size_t end);
+  bool
+  isSymmetric(std::size_t n, double* A, std::size_t begin, std::size_t end);
 
   /// Print debug information
-  void print(std::size_t n, double* A, double* x, double* lo, double* hi,
-             double* b, double* w, int* findex);
+  void print(
+      std::size_t n,
+      double* A,
+      double* x,
+      double* lo,
+      double* hi,
+      double* b,
+      double* w,
+      int* findex);
 #endif
 };
 
 } // namespace constraint
 } // namespace dart
 
-#endif  // DART_CONSTRAINT_SIMULTANEOUSIMPULSECONSTRAINTSOLVER_HPP_
-
+#endif // DART_CONSTRAINT_SEQUENTIALIMPULSECONSTRAINTSOLVER_HPP_

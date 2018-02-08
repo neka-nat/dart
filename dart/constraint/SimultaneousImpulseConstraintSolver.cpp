@@ -51,8 +51,8 @@ namespace constraint {
 
 //==============================================================================
 SimultaneousImpulseConstraintSolver::SimultaneousImpulseConstraintSolver(
-    double timeStep, BoxedLcpSolverPtr mlcpSolver)
-  : ConstraintSolver(timeStep), mBoxedLcpSolver(std::move(mlcpSolver))
+    double timeStep, BoxedLcpSolverPtr boxedLcpSolver)
+  : ConstraintSolver(timeStep), mBoxedLcpSolver(std::move(boxedLcpSolver))
 {
   if (!mBoxedLcpSolver)
     mBoxedLcpSolver = std::make_shared<DantzigBoxedLcpSolver>();

@@ -27,4 +27,6 @@ install(
 dart_format_add(
   PgsBoxedLcpSolver.hpp
   PgsBoxedLcpSolver.cpp
+  SequentialImpulseConstraintSolver.hpp
+  SequentialImpulseConstraintSolver.cpp
 )
