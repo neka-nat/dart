@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -125,8 +125,8 @@ int Lemke(
     }
     // TODO: check the condition number to return err = 3
     Eigen::JacobiSVD<Eigen::MatrixXd> svd(B);
-    double cond = svd.singularValues()(0) /
-                  svd.singularValues()(svd.singularValues().size() - 1);
+    double cond = svd.singularValues()(0)
+                  / svd.singularValues()(svd.singularValues().size() - 1);
     if (cond > 1e16)
     {
       (*_z) = Eigen::VectorXd::Zero(n);

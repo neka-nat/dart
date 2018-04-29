@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -71,6 +71,9 @@ public:
 
   // Documentation inherited.
   common::ResourcePtr retrieve(const common::Uri& _uri) override;
+
+  // Documentation inherited.
+  std::string getFilePath(const common::Uri& uri) override;
 
 private:
   std::vector<common::ResourceRetrieverPtr> getRetrievers(

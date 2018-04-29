@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -159,7 +159,7 @@ public:
   /// Equality
   template <class OtherIkT, class OtherJacNodeT>
   bool operator == (
-      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs)
+      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs) const
   {
     return (mIK == _rhs.mIK);
   }
@@ -167,7 +167,7 @@ public:
   /// Inequality
   template <class OtherIkT, class OtherJacNodeT>
   bool operator != (
-      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs)
+      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs) const
   {
     return !( *this == _rhs );
   }
@@ -175,7 +175,7 @@ public:
   /// Less than
   template <class OtherIkT, class OtherJacNodeT>
   bool operator < (
-      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs)
+      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs) const
   {
     return (mIK < _rhs.mIK);
   }
@@ -183,7 +183,7 @@ public:
   /// Greater than
   template <class OtherIkT, class OtherJacNodeT>
   bool operator > (
-      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs)
+      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs) const
   {
     return (mIK > _rhs.mIK);
   }
@@ -191,7 +191,7 @@ public:
   /// Less than or equal to
   template <class OtherIkT, class OtherJacNodeT>
   bool operator <= (
-      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs)
+      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs) const
   {
     return (*this < _rhs) || (*this == _rhs);
   }
@@ -199,7 +199,7 @@ public:
   /// Greater than or equal to
   template <class OtherIkT, class OtherJacNodeT>
   bool operator >= (
-      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs)
+      const TemplateInverseKinematicsPtr<OtherIkT, OtherJacNodeT>& _rhs) const
   {
     return (*this > _rhs) || (*this == _rhs);
   }

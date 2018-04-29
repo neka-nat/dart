@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -878,32 +878,6 @@ const Joint* BodyNode::getChildJoint(std::size_t _index) const
 
 //==============================================================================
 DART_BAKE_SPECIALIZED_NODE_DEFINITIONS( BodyNode, ShapeNode )
-
-//==============================================================================
-ShapeNode* BodyNode::createShapeNode(const ShapePtr& shape)
-{
-  ShapeNode::BasicProperties properties;
-  properties.mShape = shape;
-
-  return createShapeNode(properties, true);
-}
-
-//==============================================================================
-ShapeNode* BodyNode::createShapeNode(const ShapePtr& shape,
-                                     const std::string& name)
-{
-  ShapeNode::BasicProperties properties;
-  properties.mShape = shape;
-  properties.mName = name;
-
-  return createShapeNode(properties, false);
-}
-
-//==============================================================================
-ShapeNode* BodyNode::createShapeNode(const ShapePtr& shape, const char* name)
-{
-  return createShapeNode(shape, std::string(name));
-}
 
 //==============================================================================
 const std::vector<ShapeNode*> BodyNode::getShapeNodes()

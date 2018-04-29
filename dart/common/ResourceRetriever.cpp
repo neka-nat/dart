@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -51,6 +51,12 @@ std::string ResourceRetriever::readAll(const Uri& uri)
   }
 
   return resource->readAll();
+}
+
+//==============================================================================
+std::string ResourceRetriever::getFilePath(const Uri& /*uri*/)
+{
+  return "";
 }
 
 } // namespace common

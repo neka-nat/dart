@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -98,6 +98,19 @@ common::ResourcePtr CompositeResourceRetriever::retrieve(
             << _uri.toString() << "' (tried " << retrievers.size() << ").\n";
 
   return nullptr;
+}
+
+//==============================================================================
+std::string CompositeResourceRetriever::getFilePath(const common::Uri& uri)
+{
+  for (const auto& resourceRetriever : getRetrievers(uri))
+  {
+    const auto path = resourceRetriever->getFilePath(uri);
+    if (!path.empty())
+      return path;
+  }
+
+  return "";
 }
 
 //==============================================================================

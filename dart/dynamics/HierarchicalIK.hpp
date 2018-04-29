@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -259,7 +259,7 @@ protected:
   HierarchicalIK(const SkeletonPtr& _skeleton);
 
   /// Setup the module
-  void initialize(const std::shared_ptr<HierarchicalIK> my_ptr);
+  void initialize(const std::shared_ptr<HierarchicalIK>& my_ptr);
 
   /// Copy the setup of this HierarchicalIK module into another HierarchicalIK
   /// module

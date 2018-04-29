@@ -29,4 +29,5 @@ dart_format_add(
   PgsBoxedLcpSolver.cpp
   SequentialImpulseConstraintSolver.hpp
   SequentialImpulseConstraintSolver.cpp
+  SmartPointer.hpp
 )

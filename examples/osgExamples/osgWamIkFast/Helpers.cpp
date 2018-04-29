@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -106,6 +106,13 @@ void setupEndEffectors(const dart::dynamics::SkeletonPtr& wam)
   std::string libName = "libexample_wamIk";
 #if (DART_OS_LINUX || DART_OS_MACOS) && !NDEBUG
   libName += "d";
+#endif
+#if DART_OS_LINUX
+  libName += ".so";
+#elif DART_OS_MACOS
+  libName += ".dylib";
+#elif DART_OS_WINDOWS
+  libName += ".dll";
 #endif
 
   std::vector<std::size_t> ikFastDofs{0, 1, 3, 4, 5, 6};

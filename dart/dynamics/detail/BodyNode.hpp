@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -151,6 +151,29 @@ ShapeNode* BodyNode::createShapeNode(ShapeNodeProperties properties,
   }
 
   return createNode<ShapeNode>(properties);
+}
+
+//==============================================================================
+template <class ShapeType>
+ShapeNode* BodyNode::createShapeNode(const std::shared_ptr<ShapeType>& shape)
+{
+  ShapeNode::BasicProperties properties;
+  properties.mShape = shape;
+
+  return createShapeNode(properties, true);
+}
+
+//==============================================================================
+template <class ShapeType, class StringType>
+ShapeNode* BodyNode::createShapeNode(
+    const std::shared_ptr<ShapeType>& shape,
+    StringType&& name)
+{
+  ShapeNode::BasicProperties properties;
+  properties.mShape = shape;
+  properties.mName = std::forward<StringType>(name);
+
+  return createShapeNode(properties, false);
 }
 
 //==============================================================================

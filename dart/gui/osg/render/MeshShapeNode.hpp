@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017, The DART development contributors
+ * Copyright (c) 2011-2018, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -67,6 +67,7 @@ public:
   void extractData(bool firstTime);
 
   ::osg::Material* getMaterial(std::size_t index) const;
+  std::vector<std::string> getTextureImagePaths(std::size_t index) const;
 
 protected:
 
@@ -75,6 +76,7 @@ protected:
   std::shared_ptr<dart::dynamics::MeshShape> mMeshShape;
   osgAiNode* mRootAiNode;
   std::vector< ::osg::ref_ptr<::osg::Material> > mMaterials;
+  std::vector< std::vector<std::string> > mTextureImageArrays;
 
 };
 
