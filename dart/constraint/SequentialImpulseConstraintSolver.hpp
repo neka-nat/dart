@@ -64,8 +64,8 @@ private:
   bool isSymmetric(std::size_t n, double* A);
 
   /// Return true if the diagonla block of matrix is symmetric
-  bool
-  isSymmetric(std::size_t n, double* A, std::size_t begin, std::size_t end);
+  bool isSymmetric(
+      std::size_t n, double* A, std::size_t begin, std::size_t end);
 
   /// Print debug information
   void print(

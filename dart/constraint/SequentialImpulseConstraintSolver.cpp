@@ -73,8 +73,8 @@ void SequentialImpulseConstraintSolver::setBoxedLcpSolver(
 }
 
 //==============================================================================
-ConstBoxedLcpSolverPtr
-SequentialImpulseConstraintSolver::getBoxedLcpSolver() const
+ConstBoxedLcpSolverPtr SequentialImpulseConstraintSolver::getBoxedLcpSolver()
+    const
 {
   return mBoxedLcpSolver;
 }

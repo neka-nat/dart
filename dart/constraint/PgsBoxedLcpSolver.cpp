@@ -215,8 +215,8 @@ void PgsBoxedLcpSolver::solve(
           x[index] = new_x;
       }
 
-      if (possibleToTerminate &&
-          std::abs(x[index]) > mOption.mEpsilonForDivision)
+      if (possibleToTerminate
+          && std::abs(x[index]) > mOption.mEpsilonForDivision)
       {
         const double relativeDeltaX = std::abs((x[index] - old_x) / x[index]);
         if (relativeDeltaX > mOption.mRelativeDeltaXTolerance)
