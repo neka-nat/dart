@@ -60,16 +60,4 @@
   using Unique##X##Ptr = std::unique_ptr<X>;                                   \
   using UniqueConst##X##Ptr = std::unique_ptr<const X>;
 
-// -- Standard shared/weak/unique pointers --
-// Define a typedef for const and non-const version of shared_ptr, weak_ptr, and
-// unique_ptr for the class X
-#define DART_COMMON_MAKE_SMARTPOINTERS( X )\
-  class X ;\
-  using X ## Ptr                = std::shared_ptr< X >;\
-  using Const ## X ## Ptr       = std::shared_ptr< const X >;\
-  using Weak ## X ## Ptr        = std::weak_ptr< X >;\
-  using WeakConst ## X ## Ptr   = std::weak_ptr< const X >;\
-  using Unique ## X ## Ptr      = std::unique_ptr< X >;\
-  using UniqueConst ## X ## Ptr = std::unique_ptr< const X >;\
-
 #endif // DART_COMMON_SMARTPOINTER_HPP_

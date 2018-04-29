@@ -38,7 +38,7 @@
 namespace dart {
 namespace constraint {
 
-DART_COMMON_DECLARE_SHARED_WEAK(ConstraintSolver)
+DART_COMMON_DECLARE_SMART_POINTERS(ConstraintSolver)
 
 DART_COMMON_DECLARE_SHARED_WEAK(ConstrainedGroup)
 

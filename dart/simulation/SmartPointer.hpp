@@ -38,7 +38,7 @@
 namespace dart {
 namespace simulation {
 
-DART_COMMON_MAKE_SMARTPOINTERS(World)
+DART_COMMON_DECLARE_SHARED_WEAK(World)
 
 } // namespace simulation
 } // namespace dart
