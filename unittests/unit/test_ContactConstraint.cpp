@@ -98,11 +98,5 @@ TEST(ContactConstraint, ContactWithKinematicJoint)
         std::make_shared<constraint::DantzigBoxedLcpSolver>(), 1e-6);
 
   testContactWithKinematicJoint(
-        std::make_shared<constraint::JacobiBoxedLcpSolver>(), 1e-4);
-
-  testContactWithKinematicJoint(
         std::make_shared<constraint::PgsBoxedLcpSolver>(), 1e-4);
-
-  testContactWithKinematicJoint(
-        std::make_shared<constraint::PsorBoxedLcpSolver>(), 1e-4);
 }
