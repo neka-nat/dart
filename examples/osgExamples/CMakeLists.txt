@@ -1,6 +1,6 @@
 add_subdirectory(osgAtlasPuppet)
 add_subdirectory(osgAtlasSimbicon)
-add_subdirectory(osgBoxStack)
+add_subdirectory(osgBoxStacking)
 add_subdirectory(osgDragAndDrop)
 add_subdirectory(osgEmpty)
 add_subdirectory(osgHuboPuppet)
